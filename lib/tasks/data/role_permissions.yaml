@@ -1,0 +1,17 @@
+---
+- 
+  role_name: 厂区用户
+  level: 1
+- 
+  role_name: 集团用户
+  level: 1
+- 
+  role_name: 站点管理 
+  level: 1
+  permissions: 
+    -
+      controller: devices_controller
+      actions: [index, new, create, edit, update, show, info, uphold, destroy, update_count, xls_download, parse_excel, query_all]
+    -
+      controller: upholds_controller
+      actions: [index, new, create, edit, update, show, destroy, update_count, xls_download, parse_excel, query_all, query_devices]

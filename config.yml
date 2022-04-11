@@ -1,0 +1,559 @@
+---
+mysetting: &mysetting
+  wares: 
+    label: ''
+    name: 名字
+  reports: 
+    title: 标题
+    content: 正文
+  models:
+    label: ''
+    name: 名称
+    image: 图像
+    index: 列表
+    new: 新建
+    edit: 编辑
+    show: 详情
+    form: 表单
+    js: js
+    scss: scss
+    admin: 添加到后台
+  properties: 
+    label: 嵌套显示的属性
+    name: 属性名
+    tag: 标签
+  relates: 
+    label: ''
+    type: 关联类型
+    obj: 对象
+  templates: 
+    label: 模板
+    name: 英文名称
+    cn_name: 中文名称
+    nest: 需要在页面嵌套的一对多属性
+    image: 多个图片
+    attachment: 多个附件
+    one_image: 一个图片
+    one_attachment: 一个附件
+    index: 列表
+    new: 新建
+    edit: 编辑
+    show: 详情
+    form: 表单
+    js: js
+    scss: scss
+    download: 下载表格
+    upload: 上传解析表格
+    admin: 添加到后台
+    current_user: current_user
+  natures: 
+    label: ''
+    name: 英文属性名
+    type: 类型
+    title: 中文属性名
+    tag: 标签
+  statistics:
+    label: 数据统计
+  spiders: 
+    label: 爬虫
+    link: 请求地址
+    cookie: cookie
+    agent: agent
+    content_type: content_type
+    page: 页码
+    file: 文件名带后缀
+    referer: referer
+    host: host
+    redirection: redirection
+  selectors: 
+    label: 选择器
+    name: 选择器名称
+    category: 类型
+    title: 标题
+    categories:
+      text:
+        info: 文本
+        value: '0'
+      attr:
+        info: 属性
+        value: '1'
+      img:
+        info: 图片
+        value: '2'
+  contacts: 
+    label: 联系方式
+    phone: 电话
+    wechat: 微信
+    address: 地址
+    email: 邮箱
+    qq: QQ
+    introduce: 公司简介
+  documents: 
+    label: 历史版本
+    title: 版本
+    erb_link: 模板地址
+    html_link: 网站地址
+    status: 状态
+    status_none: 0
+    status_process: 10
+    status_success: 101
+    status_fail: 70
+  articles: 
+    label: 文章
+    lang: 语言
+    title: 文章名
+    category: 目录
+    address: 地址
+    vol: 大小
+    desc: 简要描述
+  article_contents: 
+    label: 文章内容
+    title: 标题
+    desc: 描述
+    tag: 标签
+  ocrs: 
+    label: 文字识别
+    general: 0
+    form: 1
+    webimage: 2
+    handwritten: 3
+    formula: 4
+    number: 5
+    stamp: 6
+    finance: 7
+    general_title: 通用
+    form_title: 表格
+    webimage_title: 网络图片
+    handwritten_title: 手写
+    formula_title: 公式
+    number_title: 数字
+    stamp_title: 印章
+    finance_title: 财会
+  guests: 
+    label: 来宾
+    name: 姓名
+  nests: 
+    label: 嵌套显示
+    name: 名称
+  leaders: 
+    label: 领导
+    name: 名称
+defaults: &defaults
+  admins:
+    class_name: all
+    email: myzn@world.com
+    phone: '17305379588'
+    password: dagening@521
+  users: 
+    class_name: User
+    opening: 0
+    pending: 1
+    rejected: 2
+    passed: 3
+    opening_title: 新用户
+    pending_title: 待审核
+    rejected_title: 不通过
+    passed_title: 通过
+    phone: 电话
+    password: 密码
+    password_confirmation: 确认密码
+    name: 姓名
+    identity: 身份证
+    alipay: 支付宝
+    status: 认证状态
+    level: 等级
+    inviter: 邀请者
+  roles:
+    label: 角色
+    name: 名称
+    class_name: Role
+    super_admin: 超级管理员
+    supervisor: 监理单位
+    role_fct: 厂区用户
+    role_grp: 集团用户
+    day_pdt: 厂区生产运营数据填报
+    day_pdt_verify: 厂区生产运营数据审核
+    day_pdt_cmp_verify: 公司生产运营数据审核
+    day_pdt_rpt: 厂区日报表查看
+    data_cube: 数据立方
+    data_compare: 数据对比
+    area_time: 厂间分析
+    mth_pdt_rpt: 厂区月报表填报
+    mth_pdt_rpt_verify: 厂区月报表审核
+    mth_pdt_rpt_cmp_verify: 公司月报表审核
+    mth_pdt_rpt_index: 厂区月报表查看
+    report: 集团报表管理
+    fct_emp_inf: 厂区环境监测系统进水查看
+    fct_emp_eff: 厂区环境监测系统出水查看
+    fct_emp_inf_mg: 厂区环境监测系统进水数据管理
+    fct_emp_eff_mg: 厂区环境监测系统出水数据管理
+    fct_setting: 厂区基本信息设置
+    grp_emp_inf: 集团运营环境监测系统出水
+    grp_emp_eff: 集团运营环境监测系统进水
+    grp_mgn_emp_inf: 集团管理者环境监测系统出水
+    grp_mgn_emp_eff: 集团管理者环境监测系统进水
+  permissions: 
+    super_admin: 管理系统所有资源
+    label: 权限管理
+    name: 名称
+    subject_class: controller单数名称
+    action: action
+    description: 描述
+  awards: 
+    ten_citrine: 10
+    one_citrine: 1
+  wares:
+    title: 宝贝标题
+    price: 价格
+    citrine_count: 赠送茶晶数
+    freight: 运费
+    description: 宝贝详情
+    category: 分类
+    brand: 品牌
+    up: 1
+    up_title: 上架
+    down: 0
+    down_title: 下架
+  trees: 
+    name: 名字
+    count: 茶树数量
+  leafs: 
+    produce_max: 12
+    pick: 已采摘
+    unpick: 未采摘
+    count: 茶叶数量
+    pick_time: 采摘时间
+    disable: 0
+    enable: 1
+  orders: 
+    category_none: none
+    category_recharge: 账户充值
+    paid: paid
+    completed: completed
+    state_none: 0
+    state_trade_created: 1
+    state_trade_success: 2
+    state_trade_failed: 3
+    state_none_string: 未定义
+    state_trade_created_string: 已创建
+    state_trade_success_string: 支付成功
+    state_trade_failed_string: 支付失败
+  accounts: 
+    coin: 金额
+    password: 安全密码
+    number: 卡号
+    award_sign_up: 10
+    award_check_in: 5
+    award_share: 30
+    award_invite_sign_up: 10
+    award_invite_recharge: 40
+    enable: enable
+    disable: disable
+  consumes: 
+    number: 消费编号
+    category: 项目
+    coin_cost: 消费
+    coin_now: 余额
+    status: 状态
+    category_none: none
+    category_recharge: 充值
+    category_purchase_leaf: 求购茶叶
+    category_exchange_tree: 兑换茶树
+    category_buy_ware: 购买茶叶商品
+    category_buy_ware_citrine: 购买商品奖励茶晶
+    category_buy_commision: 佣金奖励
+    category_friend_reg: 好友注册赠送
+    category_friend_authc: 下级实名赠送
+    category_system_citrine: 系统赠送
+    status_none: none
+    status_create: create
+    status_success: success
+    status_failed: failed
+    status_exception: exception
+  demands: 
+    price: 单价
+    count: 数量
+    enable: enable
+    disable: disable
+  sells: 
+    price: 单价
+    count: 数量
+    enable: enable
+    disable: disable
+  systems: 
+    poundage: 0.1
+    commision: 0.1
+    authc_pay: 1
+    host: www.cygangsta.com
+    status_en_yes: true
+    status_en_no: false
+    status_yes: 是
+    status_no: 否
+    status_public: '1'
+    status_private: '0'
+    default_str: ''
+    default_num: 0
+    default_boolean: true
+    per_page: 20
+    index: index
+    new: new
+    show: show
+    delete: delete
+    edit: edit
+    btn_upload: 上传
+    btn_back: 返回
+    btn_next: 下一步
+    btn_edit: 编辑
+    btn_new: 添加
+    btn_show: 详情
+    btn_delete: 删除
+    btn_save: 保存
+    company_name: 山东公用水务集团生产运营智能平台
+    nav_item1: 首页
+    nav_item2: 招标公告
+    nav_item3: 中标公告
+    nav_item4: 证书备案
+    nav_item5: 资料系统
+    opening: 新用户
+    pending: 待审核
+    rejected: 不通过
+    passed: 通过
+    produce_day_pdt: 系统每日8:00前自动生成昨日空白报表
+    produce_mth_rpt: 系统每月3号前自动生成上月月报表
+    chemicals: 化验数据
+    online: 在线数据
+  trade_orders: 
+    number: 订单编号
+    price: 价格
+    state: 状态
+    name: 姓名
+    phone: 电话
+    address: 地址
+    wayno: 物流信息
+    opening: opening
+    opening_title: 新建
+    pending: pending
+    pending_title: 待支付
+    paid: paid
+    paid_title: 已支付,待发货
+    departed: departed
+    departed_title: 已发货
+    completed: completed
+    completed_title: 已完成
+    canceled: canceled
+    canceled_title: 已取消
+  extract_cashes: 
+    coin: 提取金额
+    status: 状态
+    pending: pending
+    pending_title: 待审核
+    agree: agree
+    agree_title: 同意
+    disagree: disagree
+    disagree_title: 不同意
+  share_pools: 
+    today_enter: 今日入账
+    total: 月分红池总额度
+    user_total: 昨日分红池总额
+    pay: 昨日白银茶主平均分红
+    ware_total: 昨日黄金茶主平均分红
+    gross_sale: 昨日铂金茶主平均分红
+    diamond: 昨日钻石茶主平均分红
+    current_total: 分红池当月总额
+    own_tea: 持茶/片所得
+  pick_records: 
+    number: 数量
+  trades: 
+    min: 交易最低价
+    max: 交易最高价
+    total_purchase: 今日总求购
+    price: 今日茶叶价
+    volume: 今日成交量
+    start: 交易开始时间
+    end: 交易结束时间
+    start_default: '09:00'
+    end_default: '16:00'
+  teams: 
+    children: 我的直推
+  tea_prices: 
+    price: 今日茶叶价
+  products: 
+    label: 产品
+    name: 名称
+  statistics: 
+    label: 统计
+    title: 标题
+    xtitle: x轴标题
+    ytitle: y轴标题
+    legend: 图例
+    data: 数据
+  companies: 
+    label: 公司
+    area: 地区
+    name: 名称
+    info: 简介
+    lnt: 经度
+    lat: 维度
+  factories: 
+    label: 工厂
+    area: 地区
+    name: 名称
+    info: 简介
+    design: 设计处理水量
+    lnt: 经度
+    lat: 维度
+    plan: 计划
+  departments: 
+    label: 部门
+    name: 名称
+    info: 简介
+  day_pdts: 
+    label: 生产运营数据
+    pdt_date: 日期
+    name: 名称
+    signer: 填报人
+    weather: 天气
+    min_temper: 最低气温
+    max_temper: 最高气温
+    desc: 其他说明
+    ongoing: 0
+    ongoing_t: 填报中
+    verifying: 1
+    verifying_t: 审核员审核中
+    rejected: 2
+    rejected_t: 审核员驳回
+    cmp_verifying: 3
+    cmp_verifying_t: 公司审核中
+    cmp_rejected: 4
+    cmp_rejected_t: 公司驳回
+    complete: 5
+    complete_t: 已上报水务集团
+  charts: 
+    line: '0'
+    bar: '1'
+    gauge: '2'
+    table: '3'
+    radar: '4'
+    scatter_3d: '5'
+    line_t: line
+    bar_t: bar
+    gauge_t: gauge
+    table_t: table
+    radar_t: radar
+    scatter_3d_t: scatter_3d
+  months: 
+    one: '1'
+    one_t: 一月
+    two: '2'
+    two_t: 二月
+    three: '3'
+    three_t: 三月
+    four: '4'
+    four_t: 四月
+    five: '5'
+    five_t: 五月
+    six: '6'
+    six_t: 六月
+    seven: '7'
+    seven_t: 七月
+    eight: '8'
+    eight_t: 八月
+    nine: '9'
+    nine_t: 九月
+    ten: '10'
+    ten_t: 十月
+    eleven: '11'
+    eleven_t: 十一月
+    twelve: '12'
+    twelve_t: 十二月
+  notices: 
+    label: 通知公告
+    title: 标题
+    content: 内容
+  ctg_mtrls:
+    label: 材料分类
+    idno: 编号
+    name: 名称
+    unit: 单位
+    pet_name: 别名或其他名
+    model_no: 型号
+  ctg_secds:
+    label: 二级类目
+    name: 名称
+  ctg_frsts:
+    label: 一级分类
+    name: 名称
+  ware_houses:
+    label: 入库单
+    name: 入库单名称
+    sign: 填写人
+    ware_date: 时间
+    desc: 备注
+    opening: opening
+    uploading: uploading
+    uploaded: uploaded
+    completed: completed
+    canceled: canceled
+  input_items:
+    label: 入库项目
+    unit_price: 单价
+    count: 数量
+    total_price: 总价
+  stocks:
+    label: 库存
+    unit_price: 单价
+    count: 数量
+    total_price: 总价
+    position: 位置
+  retrievals:
+    label: 出库
+    name: 名称
+    outdate: 出库日期
+    dept: 部门
+    signer: 填写人
+    receiver: 领取人
+    opening: opening
+    selecting: selecting
+    selected: selected
+    completed: completed
+    canceled: canceled
+  output_items:
+    label: 出库项目
+    count: 数量
+    unit_price: 单价
+    total_price: 总价
+  projects:
+    label: 工程项目
+    name: 工程名
+    start: 开始日期
+    end: 结束日期
+    state: 状态
+    dept: 领料部门
+    ongoing: ongoing
+    outbound: outbound
+  pick_items:
+    label: 领料明细
+    count: 数量
+  picks:
+    label: 领料单
+    name: 名称
+    pick_date: 领料日期
+    signer: 填写人
+    dept: 部门
+    receiver: 领料人
+    state: 状态
+    desc: 备注
+    opening: opening
+    selecting: selecting
+    selected: selected
+    completed: completed
+    canceled: canceled
+development:
+  <<: *defaults
+  <<: *mysetting
+test:
+  <<: *defaults
+  <<: *mysetting
+production:
+  <<: *defaults
+  <<: *mysetting

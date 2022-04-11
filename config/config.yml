@@ -1,0 +1,335 @@
+---
+mysetting: &mysetting
+  notices: 
+    label: 通知公告
+    title: 标题
+    content: 内容
+  reports: 
+    title: 标题
+    content: 正文
+  models: 
+    label: ''
+    name: 名称
+    image: 图像
+    index: 列表
+    new: 新建
+    edit: 编辑
+    show: 详情
+    form: 表单
+    js: js
+    scss: scss
+    admin: 添加到后台
+  properties: 
+    label: 嵌套显示的属性
+    name: 属性名
+    tag: 标签
+  relates: 
+    label: ''
+    type: 关联类型
+    obj: 对象
+  templates: 
+    label: 模板
+    name: 英文名称
+    cn_name: 中文名称
+    nest: 需要在页面嵌套的一对多属性
+    image: 多个图片
+    attachment: 多个附件
+    one_image: 一个图片
+    one_attachment: 一个附件
+    index: 列表
+    new: 新建
+    edit: 编辑
+    show: 详情
+    form: 表单
+    js: js
+    scss: scss
+    download: 下载表格
+    upload: 上传解析表格
+    admin: 添加到后台
+    current_user: current_user
+  natures: 
+    label: ''
+    name: 英文属性名
+    type: 类型
+    title: 中文属性名
+    tag: 标签
+  spiders: 
+    label: 爬虫
+    link: 请求地址
+    cookie: cookie
+    agent: agent
+    content_type: content_type
+    page: 页码
+    file: 文件名带后缀
+    referer: referer
+    host: host
+    redirection: redirection
+  selectors: 
+    label: 选择器
+    name: 选择器名称
+    category: 类型
+    title: 标题
+    categories:
+      text:
+        info: 文本
+        value: '0'
+      attr:
+        info: 属性
+        value: '1'
+      img:
+        info: 图片
+        value: '2'
+defaults: &defaults
+  admins: 
+    class_name: all
+    email: myzn@world.com
+    phone: '17305379588'
+    password: dagening@521
+  users: 
+    class_name: User
+    opening: 0
+    pending: 1
+    rejected: 2
+    passed: 3
+    opening_title: 新用户
+    pending_title: 待审核
+    rejected_title: 不通过
+    passed_title: 通过
+    phone: 电话
+    password: 密码
+    password_confirmation: 确认密码
+    name: 姓名
+    identity: 身份证
+    alipay: 支付宝
+    status: 认证状态
+    level: 等级
+    inviter: 邀请者
+  roles: 
+    label: 角色
+    name: 名称
+    class_name: Role
+    super_admin: 超级管理员
+    role_fct: 厂区用户
+    role_grp: 集团用户
+    role_warehouse: 巡检人员管理
+    role_device: 站点管理
+  permissions: 
+    super_admin: 管理系统所有资源
+    label: 权限管理
+    name: 名称
+    subject_class: controller单数名称
+    action: action
+    description: 描述
+  systems: 
+    poundage: 0.1
+    commision: 0.1
+    authc_pay: 1
+    host: http://47.104.153.152
+    status_en_yes: true
+    status_en_no: false
+    status_yes: 是
+    status_no: 否
+    status_public: '1'
+    status_private: '0'
+    default_str: ''
+    default_num: 0
+    default_boolean: true
+    per_page: 20
+    index: index
+    new: new
+    show: show
+    delete: delete
+    edit: edit
+    btn_upload: 上传
+    btn_back: 返回
+    btn_next: 下一步
+    btn_edit: 编辑
+    btn_new: 添加
+    btn_show: 详情
+    btn_delete: 删除
+    btn_save: 保存
+    company_name: 山东公用水务集团农污巡检系统
+    opening: 新用户
+    pending: 待审核
+    rejected: 不通过
+    passed: 通过
+  states: 
+    opening: opening
+    selecting: selecting
+    selected: selected
+    completed: completed
+    canceled: canceled
+    uploading: uploading
+    uploaded: uploaded
+    ongoing: ongoing
+    outbound: outbound
+    awaiting: awaiting
+  trade_orders: 
+    number: 订单编号
+    price: 价格
+    state: 状态
+    name: 姓名
+    phone: 电话
+    address: 地址
+    wayno: 物流信息
+    opening: opening
+    opening_title: 新建
+    pending: pending
+    pending_title: 待支付
+    paid: paid
+    paid_title: 已支付,待发货
+    departed: departed
+    departed_title: 已发货
+    completed: completed
+    completed_title: 已完成
+    canceled: canceled
+    canceled_title: 已取消
+  extract_cashes: 
+    coin: 提取金额
+    status: 状态
+    pending: pending
+    pending_title: 待审核
+    agree: agree
+    agree_title: 同意
+    disagree: disagree
+    disagree_title: 不同意
+  file_libs: 
+    label: 文件库
+    name: 文件名
+    path: 路径
+    file_type: 文件类型
+    doc: '0'
+    xls: '1'
+    pdf: '2'
+    img: '3'
+    ppt: '4'
+    mp4: '5'
+    txt: '6'
+  archives: 
+    label: 档案库
+    name: 名称
+    desc: 备注
+  portfolios: 
+    label: 文件夹
+    name: 文件夹名
+  examines: 
+    label: 考核资料自选库
+    name: 名称
+  exm_items: 
+    label: 一级目录
+    name: 一级目录名
+    hierarchy: 目录树
+  agendas: 
+    label: 日程
+    title: 标题
+    content: 事务内容
+    worktime: 时间
+  statistics: 
+    label: 统计
+    title: 标题
+    xtitle: x轴标题
+    ytitle: y轴标题
+    legend: 图例
+    data: 数据
+  companies: 
+    label: 公司
+    area: 地区
+    name: 名称
+    info: 简介
+    lnt: 经度
+    lat: 维度
+  factories: 
+    label: 工厂
+    area: 地区
+    name: 名称
+    info: 简介
+    design: 设计处理水量
+    lnt: 经度
+    lat: 维度
+    plan: 计划
+  departments: 
+    label: 部门
+    name: 名称
+    info: 简介
+  charts: 
+    line: '0'
+    bar: '1'
+    gauge: '2'
+    table: '3'
+    radar: '4'
+    scatter_3d: '5'
+    line_t: line
+    bar_t: bar
+    gauge_t: gauge
+    table_t: table
+    radar_t: radar
+    scatter_3d_t: scatter_3d
+  months: 
+    one: '1'
+    one_t: 一月
+    two: '2'
+    two_t: 二月
+    three: '3'
+    three_t: 三月
+    four: '4'
+    four_t: 四月
+    five: '5'
+    five_t: 五月
+    six: '6'
+    six_t: 六月
+    seven: '7'
+    seven_t: 七月
+    eight: '8'
+    eight_t: 八月
+    nine: '9'
+    nine_t: 九月
+    ten: '10'
+    ten_t: 十月
+    eleven: '11'
+    eleven_t: 十一月
+    twelve: '12'
+    twelve_t: 十二月
+  accounts: 
+    coin: 金额
+    password: 安全密码
+    number: 卡号
+    award_sign_up: 10
+    award_check_in: 5
+    award_share: 30
+    award_invite_sign_up: 10
+    award_invite_recharge: 40
+    enable: enable
+    disable: disable
+  devices: 
+    label: 站点信息
+    idno: 站点编号
+    name: 站点名称
+    mdno: 县区 
+    unit: 街道
+    out_date: 出厂日期
+    mount_date: 安装日期
+    supplier: 村/社区
+    mfcture: 制造商
+    pos: 经度
+    pos_no: 纬度
+    life: 使用年限
+    qrcode: 二维码
+    state: 状态
+    desc: 备注
+    state_normal: 正常
+    state_repair: 检修
+    state_stop: 停用
+  upholds: 
+    label: 巡检记录
+    uphold_date: 日期
+    reason: 巡检原因
+    content: 巡检内容
+    cost: 费用
+    state: 状态
+development:
+  <<: *defaults
+  <<: *mysetting
+test:
+production:
+  <<: *defaults
+  <<: *mysetting

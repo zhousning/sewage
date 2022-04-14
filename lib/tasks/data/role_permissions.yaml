@@ -15,3 +15,6 @@
     -
       controller: upholds_controller
       actions: [index, new, create, edit, update, show, destroy, update_count, xls_download, parse_excel, query_all, query_devices]
+- 
+  role_name: 巡检人员 
+  level: 1

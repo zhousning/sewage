@@ -1,13 +1,13 @@
 ---
-mysetting: &mysetting
-  notices: 
+mysetting:
+  notices: &24
     label: 通知公告
     title: 标题
     content: 内容
-  reports: 
+  reports: &25
     title: 标题
     content: 正文
-  models: 
+  models: &26
     label: ''
     name: 名称
     image: 图像
@@ -19,15 +19,15 @@ mysetting: &mysetting
     js: js
     scss: scss
     admin: 添加到后台
-  properties: 
+  properties: &27
     label: 嵌套显示的属性
     name: 属性名
     tag: 标签
-  relates: 
+  relates: &28
     label: ''
     type: 关联类型
     obj: 对象
-  templates: 
+  templates: &29
     label: 模板
     name: 英文名称
     cn_name: 中文名称
@@ -47,13 +47,13 @@ mysetting: &mysetting
     upload: 上传解析表格
     admin: 添加到后台
     current_user: current_user
-  natures: 
+  natures: &30
     label: ''
     name: 英文属性名
     type: 类型
     title: 中文属性名
     tag: 标签
-  spiders: 
+  spiders: &31
     label: 爬虫
     link: 请求地址
     cookie: cookie
@@ -64,7 +64,7 @@ mysetting: &mysetting
     referer: referer
     host: host
     redirection: redirection
-  selectors: 
+  selectors: &32
     label: 选择器
     name: 选择器名称
     category: 类型
@@ -79,13 +79,13 @@ mysetting: &mysetting
       img:
         info: 图片
         value: '2'
-defaults: &defaults
-  admins: 
+defaults:
+  admins: &1
     class_name: all
     email: myzn@world.com
     phone: '17305379588'
     password: dagening@521
-  users: 
+  users: &2
     class_name: User
     opening: 0
     pending: 1
@@ -104,23 +104,23 @@ defaults: &defaults
     status: 认证状态
     level: 等级
     inviter: 邀请者
-  roles: 
+  roles: &3
     label: 角色
     name: 名称
     class_name: Role
     super_admin: 超级管理员
     role_fct: 厂区用户
     role_grp: 集团用户
-    role_warehouse: 巡检人员管理
+    role_patroler: 巡检人员
     role_device: 站点管理
-  permissions: 
+  permissions: &4
     super_admin: 管理系统所有资源
     label: 权限管理
     name: 名称
     subject_class: controller单数名称
     action: action
     description: 描述
-  systems: 
+  systems: &5
     poundage: 0.1
     commision: 0.1
     authc_pay: 1
@@ -153,7 +153,7 @@ defaults: &defaults
     pending: 待审核
     rejected: 不通过
     passed: 通过
-  states: 
+  states: &6
     opening: opening
     selecting: selecting
     selected: selected
@@ -164,7 +164,9 @@ defaults: &defaults
     ongoing: ongoing
     outbound: outbound
     awaiting: awaiting
-  trade_orders: 
+    pending: pending
+    passed: passed
+  trade_orders: &7
     number: 订单编号
     price: 价格
     state: 状态
@@ -184,7 +186,7 @@ defaults: &defaults
     completed_title: 已完成
     canceled: canceled
     canceled_title: 已取消
-  extract_cashes: 
+  extract_cashes: &8
     coin: 提取金额
     status: 状态
     pending: pending
@@ -193,7 +195,7 @@ defaults: &defaults
     agree_title: 同意
     disagree: disagree
     disagree_title: 不同意
-  file_libs: 
+  file_libs: &9
     label: 文件库
     name: 文件名
     path: 路径
@@ -205,40 +207,40 @@ defaults: &defaults
     ppt: '4'
     mp4: '5'
     txt: '6'
-  archives: 
+  archives: &10
     label: 档案库
     name: 名称
     desc: 备注
-  portfolios: 
+  portfolios: &11
     label: 文件夹
     name: 文件夹名
-  examines: 
+  examines: &12
     label: 考核资料自选库
     name: 名称
-  exm_items: 
+  exm_items: &13
     label: 一级目录
     name: 一级目录名
     hierarchy: 目录树
-  agendas: 
+  agendas: &14
     label: 日程
     title: 标题
     content: 事务内容
     worktime: 时间
-  statistics: 
+  statistics: &15
     label: 统计
     title: 标题
     xtitle: x轴标题
     ytitle: y轴标题
     legend: 图例
     data: 数据
-  companies: 
+  companies: &16
     label: 公司
     area: 地区
     name: 名称
     info: 简介
     lnt: 经度
     lat: 维度
-  factories: 
+  factories: &17
     label: 工厂
     area: 地区
     name: 名称
@@ -247,11 +249,11 @@ defaults: &defaults
     lnt: 经度
     lat: 维度
     plan: 计划
-  departments: 
+  departments: &18
     label: 部门
     name: 名称
     info: 简介
-  charts: 
+  charts: &19
     line: '0'
     bar: '1'
     gauge: '2'
@@ -264,7 +266,7 @@ defaults: &defaults
     table_t: table
     radar_t: radar
     scatter_3d_t: scatter_3d
-  months: 
+  months: &20
     one: '1'
     one_t: 一月
     two: '2'
@@ -289,7 +291,7 @@ defaults: &defaults
     eleven_t: 十一月
     twelve: '12'
     twelve_t: 十二月
-  accounts: 
+  accounts: &21
     coin: 金额
     password: 安全密码
     number: 卡号
@@ -300,11 +302,11 @@ defaults: &defaults
     award_invite_recharge: 40
     enable: enable
     disable: disable
-  devices: 
+  devices: &22
     label: 站点信息
     idno: 站点编号
     name: 站点名称
-    mdno: 县区 
+    mdno: 县区
     unit: 街道
     out_date: 出厂日期
     mount_date: 安装日期
@@ -319,17 +321,83 @@ defaults: &defaults
     state_normal: 正常
     state_repair: 检修
     state_stop: 停用
-  upholds: 
+  upholds: &23
     label: 巡检记录
     uphold_date: 日期
     reason: 巡检原因
     content: 巡检内容
     cost: 费用
     state: 状态
+  patrolers: &33
+    label: 巡检人员
+    name: 姓名
+    phone: 电话
+    password: 密码
 development:
-  <<: *defaults
-  <<: *mysetting
-test:
+  admins: *1
+  users: *2
+  roles: *3
+  permissions: *4
+  systems: *5
+  states: *6
+  trade_orders: *7
+  extract_cashes: *8
+  file_libs: *9
+  archives: *10
+  portfolios: *11
+  examines: *12
+  exm_items: *13
+  agendas: *14
+  statistics: *15
+  companies: *16
+  factories: *17
+  departments: *18
+  charts: *19
+  months: *20
+  accounts: *21
+  devices: *22
+  upholds: *23
+  notices: *24
+  reports: *25
+  models: *26
+  properties: *27
+  relates: *28
+  templates: *29
+  natures: *30
+  spiders: *31
+  selectors: *32
+  patrolers: *33
+test: 
 production:
-  <<: *defaults
-  <<: *mysetting
+  admins: *1
+  users: *2
+  roles: *3
+  permissions: *4
+  systems: *5
+  states: *6
+  trade_orders: *7
+  extract_cashes: *8
+  file_libs: *9
+  archives: *10
+  portfolios: *11
+  examines: *12
+  exm_items: *13
+  agendas: *14
+  statistics: *15
+  companies: *16
+  factories: *17
+  departments: *18
+  charts: *19
+  months: *20
+  accounts: *21
+  devices: *22
+  upholds: *23
+  notices: *24
+  reports: *25
+  models: *26
+  properties: *27
+  relates: *28
+  templates: *29
+  natures: *30
+  spiders: *31
+  selectors: *32

@@ -171,6 +171,7 @@ defaults: &defaults
     supervisor: 监理单位
     role_fct: 厂区用户
     role_grp: 集团用户
+    role_patroler: 巡检人员
     day_pdt: 厂区生产运营数据填报
     day_pdt_verify: 厂区生产运营数据审核
     day_pdt_cmp_verify: 公司生产运营数据审核

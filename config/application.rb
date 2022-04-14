@@ -39,7 +39,8 @@ module Agate
       allow do
         #origins '47.104.224.87:80'
         origins '*'
-        resource '/equipments/*', :headers => :any, :methods => [:get]
+        #resource '/wx_users/*', :headers => :any, :methods => [:get]
+        resource '/wx_users/*', :headers => :any
       end
     end
   end

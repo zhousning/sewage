@@ -63,6 +63,15 @@ Rails.application.routes.draw do
     post :analyze, :on => :collection
   end
 
+  resources :wx_users, only: [:update] do
+    collection do
+      post 'get_userid'
+      get 'fcts'
+      get 'status'
+      post 'set_fct'
+    end
+  end
+
   resources :notices
   #resources :articles do
   #  get :export, :on => :collection
@@ -100,14 +109,6 @@ Rails.application.routes.draw do
     #  get :query_all, :on => :collection
     #end
     resources :devices do
-      get :download_append, :on => :member
-      get :download_select, :on => :member
-      get :download_update, :on => :member
-      get :download_buy, :on => :member
-      get :download_install, :on => :member
-      get :download_dump, :on => :member
-      get :download_accept, :on => :member
-
       post :parse_excel, :on => :collection
       get :xls_download, :on => :collection
       get :query_all, :on => :collection
@@ -119,31 +120,18 @@ Rails.application.routes.draw do
       get :query_all, :on => :collection
       get :query_devices, :on => :collection
     end
-    #resources :projects do
-    #  get :outbound, :on => :member
-    #  resources :picks do
-    #    get :completed, :on => :member
-    #    get :canceled, :on => :member
-    #    resources :pick_items do
-    #      get :current_stock, :on => :collection
-    #      get :select_stock, :on => :collection
-    #      get :pick_item_create, :on => :collection
-    #    end
-    #  end
-    #end
+    resources :patrolers do
+      get :download_append, :on => :member
+      get :query_all, :on => :collection
+      post :patroler_update, :on => :member
+    end
+    resources :inspectors, :only => [:index] do
+      get :receive, :on => :member
+      get :reject, :on => :member
+    end
 
   end
 
-  #resources :departments do
-  #  get :download_append, :on => :member
-  #  post :parse_excel, :on => :collection
-  #  get :xls_download, :on => :collection
-  #end
-  resources :device_repairs do
-    get :download_append, :on => :member
-    get :xls_download, :on => :collection
-    get :query_all, :on => :collection
-  end
   resources :equipments, :only => [] do
     get :fcts, :on => :collection
     get :upholds, :on => :collection

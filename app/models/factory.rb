@@ -28,6 +28,7 @@ class Factory < ActiveRecord::Base
   has_many :user_fcts, :dependent => :destroy
   has_many :users, :through => :user_fcts
 
+  has_many :wx_users
 
   has_many :departments, :dependent => :destroy
   accepts_nested_attributes_for :departments, reject_if: :all_blank, allow_destroy: true

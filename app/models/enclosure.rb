@@ -10,17 +10,9 @@ class Enclosure < ActiveRecord::Base
   belongs_to :carousel
   belongs_to :ocr
 
-  ##belongs_to :dec_select
-  ##belongs_to :dec_buy
-  ##belongs_to :dec_accept
-  ##belongs_to :dec_install
-  ##belongs_to :dec_uphold
-  ##belongs_to :dec_repair
-  ##belongs_to :dec_update
-  ##belongs_to :dec_dump
-
-
   belongs_to :day_pdt
+  belongs_to :task
+  belongs_to :task_report
 end
 
 

@@ -89,10 +89,6 @@ Rails.application.routes.draw do
   #  post :alipay_notify, :on => :collection
   #end
 
-  #resources :tasks, :only => [] do
-  #  get :invite, :on => :collection
-  #end
-
   #resources :spiders do
   #  get :start, :on => :member
   #end
@@ -115,6 +111,10 @@ Rails.application.routes.draw do
       get :info, :on => :member
       get :uphold, :on => :member
     end
+    resources :tasks do
+      get :xls_download, :on => :collection
+      get :query_all, :on => :collection
+    end
     resources :upholds do
       get :download_append, :on => :member
       get :query_all, :on => :collection
@@ -135,6 +135,14 @@ Rails.application.routes.draw do
   resources :equipments, :only => [] do
     get :fcts, :on => :collection
     get :upholds, :on => :collection
+    get :query_all, :on => :collection
+  end
+  resources :tasks do
+    get :download_append, :on => :member
+    get :query_all, :on => :collection
+  end
+  resources :task_reports do
+    get :download_append, :on => :member
     get :query_all, :on => :collection
   end
   resources :flower

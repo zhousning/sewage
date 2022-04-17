@@ -24,6 +24,7 @@ class Factory < ActiveRecord::Base
 
   has_many :devices
   has_many :upholds
+  has_many :tasks
 
   has_many :user_fcts, :dependent => :destroy
   has_many :users, :through => :user_fcts

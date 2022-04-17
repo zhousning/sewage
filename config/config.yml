@@ -367,6 +367,16 @@ development:
   spiders: *31
   selectors: *32
   patrolers: *33
+  tasks:
+    label: 巡检任务
+    task_date: 巡检日期
+    des: 备注
+  task_reports:
+    label: 巡检报告
+    longitude: 经度
+    latitude: 维度
+    state: 运行状态
+    question: 问题
 test: 
 production:
   admins: *1

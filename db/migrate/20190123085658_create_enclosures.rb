@@ -9,6 +9,8 @@ class CreateEnclosures < ActiveRecord::Migration
       t.references :article
       t.references :ocr
       t.references :ctg_mtrl
+      t.references :task
+      t.references :task_report
     end
   end
 end

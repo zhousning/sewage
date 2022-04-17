@@ -11,6 +11,8 @@ class Device < ActiveRecord::Base
 
   mount_uploader :avatar, EnclosureUploader
 
+  has_many :task_reports, :dependent => :destroy
+  accepts_nested_attributes_for :task_reports, reject_if: :all_blank, allow_destroy: true
 
   has_many :upholds, :dependent => :destroy
   accepts_nested_attributes_for :upholds, reject_if: :all_blank, allow_destroy: true

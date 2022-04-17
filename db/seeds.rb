@@ -80,6 +80,9 @@ user.factories << all_factories
 grp_mgn = User.create!(:phone => "1236688", :password => "swjt6688", :password_confirmation => "swjt6688", :name => "水务集团管理者", :roles => @grp_mgn, :factories => all_factories)
 
 
+WxUser.create(:name => '周宁1', :phone => '423432', :factory => Factory.first)
+WxUser.create(:name => '周宁2', :phone => '423432', :factory => Factory.first)
+WxUser.create(:name => '周宁3', :phone => '423432', :factory => Factory.first)
 #User.create!(:phone => "053769699898", :password => "lssw9898", :password_confirmation => "lssw9898", :name => "梁山农污巡检人员管理员", :roles => @fct_whmgn, :factories => [@lssw])
 #User.create!(:phone => "053769693708", :password => "lssw3708", :password_confirmation => "lssw3708", :name => "梁山农污站点管理员", :roles => @fct_dvmgn, :factories => [@lssw])
 #

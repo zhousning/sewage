@@ -19,6 +19,11 @@
 class WxUser < ActiveRecord::Base
   belongs_to :factory
 
+  has_many :task_wxusers, :dependent => :destroy
+  has_many :tasks, :through => :task_wxusers
+
+  has_many :task_reports
+
  STATESTR = %w(ongoing completed)
   STATE = [Setting.states.ongoing, Setting.states.completed]
   validates_inclusion_of :state, :in => STATE

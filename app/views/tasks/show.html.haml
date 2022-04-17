@@ -1,0 +1,74 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-sm-12
+              %h2.text-center
+                = image_tag "gykg.jpg"
+                = Setting.tasks.label
+            .col-md-8.offset-2.p-5.border
+              .card.border-0.mb-3.rounded-0
+                .card-body
+                  %table.table-bordered.day-pdt-table.w-100.mb-3
+                    %tbody
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.tasks.task_date
+                        %td.p-2.text-center
+                          = @task.task_date
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.tasks.des
+                        %td.p-2.text-center
+                          = @task.des
+                    
+              .row
+              
+                - @task.enclosures.each do |e|
+                  .col-md-6
+                    = image_tag e.file_url(:small_width), :class => "w-100"
+              
+              .row
+                .col-md-12
+                  .card.border-0.mb-3.rounded-0
+                    .card-header.bg-transparent.border-info
+                      -#
+                        %h5
+                        = Setting.wx_users.label
+                    .card-body
+                      %table.table-bordered.day-pdt-table.w-100
+                        %tbody
+                          - @task.wx_users.each do |wx_user|
+                             
+                            %tr
+                              %td.p-3.text-center
+                                -#= Setting.wx_users.name
+                              %td.p-3.text-center
+                                = wx_user.name
+                             
+                            
+                              %td.p-3.text-center
+                                -#= Setting.wx_users.phone
+                              %td.p-3.text-center
+                                = wx_user.phone
+                             
+                            
+                              %td.p-3.text-center
+                                -#= Setting.wx_users.avatarurl
+                              %td.p-3.text-center
+                                = wx_user.avatarurl
+                            
+              
+      = render "layouts/bootstrap/card"

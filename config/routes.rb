@@ -71,6 +71,13 @@ Rails.application.routes.draw do
       post 'set_fct'
     end
   end
+  resources :wx_tasks, only: [] do
+    collection do
+      get 'query_all'
+      get 'query_finish'
+      get 'basic_card'
+    end
+  end
 
   resources :notices
   #resources :articles do
@@ -114,6 +121,8 @@ Rails.application.routes.draw do
     resources :tasks do
       get :xls_download, :on => :collection
       get :query_all, :on => :collection
+      get :ongoing, :on => :member
+      get :finish, :on => :member
     end
     resources :upholds do
       get :download_append, :on => :member

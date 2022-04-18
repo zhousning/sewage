@@ -41,6 +41,7 @@ module Agate
         origins '*'
         #resource '/wx_users/*', :headers => :any, :methods => [:get]
         resource '/wx_users/*', :headers => :any
+        resource '/wx_tasks/*', :headers => :any
       end
     end
   end

@@ -13,5 +13,26 @@ class Task < ActiveRecord::Base
   accepts_nested_attributes_for :task_reports, reject_if: :all_blank, allow_destroy: true
 
 
+ STATESTR = %w(ongoing completed)
+  STATE = [Setting.states.ongoing, Setting.states.completed]
+  validates_inclusion_of :state, :in => STATE
+  state_hash = {
+    STATESTR[0] => Setting.states.ongoing, 
+    STATESTR[5] => Setting.states.completed
+  }
+
+  STATESTR.each do |state|
+    define_method "#{state}?" do
+      self.state == state_hash[state]
+    end
+  end
+
+  def ongoing 
+    update_attribute :state, Setting.states.ongoing
+  end
+
+  def completed
+    update_attribute :state, Setting.states.completed
+  end
 
 end

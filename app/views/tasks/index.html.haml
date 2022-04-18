@@ -30,6 +30,9 @@
                   
                     %th{:scope => "col", :'data-field' => "des"}
                       = Setting.tasks.des
+
+                    %th{:scope => "col", :'data-field' => "state"}
+                      进度
                   
                     %th{:scope => "col", :'data-field' => "button"}
                 %tbody
@@ -43,8 +46,15 @@
                       %td
                         = task.des
                       %td
+                        - if task.state == Setting.states.ongoing
+                          进行中
+                        - else
+                          已完成
+                      %td
                         .container-fluid
                           .row.justify-content-center
+                            = link_to "进行中", ongoing_factory_task_path(idencode(@factory.id), idencode(task.id)), :class => "button button-royal button-small mr-1" 
+                            = link_to "已完成", finish_factory_task_path(idencode(@factory.id), idencode(task.id)), :class => "button button-caution button-small mr-1" 
                             = link_to "编辑", edit_factory_task_path(idencode(@factory.id), idencode(task.id)), :class => "button button-royal button-small mr-1" 
                             = link_to "查看",  factory_task_path(idencode(@factory.id), idencode(task.id)), :class => "button button-primary button-small mr-1" 
                             = link_to "删除",  factory_task_path(idencode(@factory.id), idencode(task.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 

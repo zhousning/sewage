@@ -76,6 +76,8 @@ Rails.application.routes.draw do
       get 'query_all'
       get 'query_finish'
       get 'basic_card'
+      get 'task_info'
+      post 'report_create'
     end
   end
 

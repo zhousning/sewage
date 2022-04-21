@@ -36,6 +36,7 @@ class TasksController < ApplicationController
   def show
    
     @task = @factory.tasks.find(iddecode(params[:id]))
+    @task_reports = @task.task_reports.order('created_at DESC')
    
   end
    

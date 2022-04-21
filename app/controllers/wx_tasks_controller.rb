@@ -11,7 +11,8 @@ class WxTasksController < ApplicationController
     wxuser = WxUser.find_by(:openid => params[:id])
     @factory = wxuser.factory
 
-    items = @factory.tasks.where(['task_date > ? and state = ?', Date.yesterday, Setting.states.ongoing])
+    #items = @factory.tasks.where(['task_date > ? and state = ?', Date.yesterday, Setting.states.ongoing])
+    items = @factory.tasks.where(['task_date > ? ', Date.yesterday])
    
     obj = []
     items.each do |item|
@@ -38,7 +39,8 @@ class WxTasksController < ApplicationController
     wxuser = WxUser.find_by(:openid => params[:id])
     @factory = wxuser.factory
 
-    items = @factory.tasks.where(['state = ?', Setting.states.completed])
+    #items = @factory.tasks.where(['state = ?', Setting.states.completed])
+    items = @factory.tasks.where(['task_date < ? ', Date.today])
    
     obj = []
     items.each do |item|
@@ -68,7 +70,8 @@ class WxTasksController < ApplicationController
     @device = @factory.devices.find(iddecode(device_id))
 
     obj = []
-    items = @factory.tasks.where(['task_date = ? and state = ?', Date.today, Setting.states.ongoing])
+    #items = @factory.tasks.where(['task_date = ? and state = ?', Date.today, Setting.states.ongoing])
+    items = @factory.tasks.where(['task_date = ? ', Date.today])
     items.each do |item|
       obj << {
         :task_id => idencode(item.id),

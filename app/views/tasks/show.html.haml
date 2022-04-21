@@ -6,72 +6,92 @@
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
         %h5
-          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          = fa_icon "newspaper-o", text: @task.task_date.to_s + '巡检任务'
           = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
       - content_for :card_body do
         .container-fluid
+          .row.mb-5
+            .col-sm-12
+              %table.w-100.table-bordered.day-pdt-table
+                %tbody
+                  %tr
+                    %td.p-2.text-center.align-middle
+                      巡检人员
+                    %td.p-2
+                      - @task.wx_users.each do |wx_user|
+                        %span.mr-5
+                          = wx_user.name
+                          = wx_user.phone
+                  %tr
+                    %td.p-2.text-center.align-middle
+                      任务详情
+                    %td.p-2
+                      = @task.des
+                      - @task.enclosures.each do |e|
+                        = image_tag e.file_url(:small_width)
           .row
             .col-sm-12
-              %h2.text-center
-                = image_tag "gykg.jpg"
-                = Setting.tasks.label
-            .col-md-8.offset-2.p-5.border
-              .card.border-0.mb-3.rounded-0
-                .card-body
-                  %table.table-bordered.day-pdt-table.w-100.mb-3
-                    %tbody
+              %table.table.w-100.table-bordered.day-pdt-table
+                %thead
+                  %tr
+                    %th.text-center.align-middle
+                      巡检人员
+                    %th.text-center.align-middle
+                      签到时间
+                    %th.text-center.align-middle
+                      站点运行状态
+                    %th.text-center.align-middle
+                      问题反馈
+                    %th.text-center.align-middle
+                      现场拍照
+
+                %tbody
+                  - @task_reports.each do |rept|
+                    %tr
+                      %td.p-2.text-center.align-middle
+                        = rept.wx_user.name
+                      %td.p-2.text-center.align-middle
+                        = rept.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                      %td.p-2.text-center.align-middle
+                        - if rept.state == '0' 
+                          %span.p-2.text-white.bg-success
+                            正常
+                        - else
+                          %span.p-2.text-white.bg-danger
+                            异常
+                      %td.p-2.text-left.align-middle
+                        = rept.question
+                      %td.p-2.text-left.align-middle
+                        - rept.img.split(',').each do |img|
+                          = image_tag img, :class => 'h-100px'
+            -#
+              %ul.list-unstyled
+                - @task_reports.each do |rept|
+                  %li.media.mb-4
+                    = image_tag rept.wx_user.avatarurl, :class => "mr-3"
+                    .media-body
+                      %h5.mt-0.mb-1
+                        = rept.wx_user.name
+                        = rept.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                        - if rept.state == '0' 
+                          %span.bg-success
+                            正常
+                        - else
+                          %span.bg-danger
+                            异常
+                      %p
+                        = rept.question
+                      .row
+                        - rept.img.split(',').each do |img|
+                          .col-3
+                            = image_tag img, :class => 'img-fluid'
+                     
                     
-                      %tr
-                        %td.p-2.text-center
-                          = Setting.tasks.task_date
-                        %td.p-2.text-center
-                          = @task.task_date
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.tasks.des
-                        %td.p-2.text-center
-                          = @task.des
-                    
-              .row
-              
-                - @task.enclosures.each do |e|
-                  .col-md-6
-                    = image_tag e.file_url(:small_width), :class => "w-100"
-              
-              .row
-                .col-md-12
-                  .card.border-0.mb-3.rounded-0
-                    .card-header.bg-transparent.border-info
-                      -#
-                        %h5
-                        = Setting.wx_users.label
-                    .card-body
-                      %table.table-bordered.day-pdt-table.w-100
-                        %tbody
-                          - @task.wx_users.each do |wx_user|
-                             
-                            %tr
-                              %td.p-3.text-center
-                                -#= Setting.wx_users.name
-                              %td.p-3.text-center
-                                = wx_user.name
-                             
-                            
-                              %td.p-3.text-center
-                                -#= Setting.wx_users.phone
-                              %td.p-3.text-center
-                                = wx_user.phone
-                             
-                            
-                              %td.p-3.text-center
-                                -#= Setting.wx_users.avatarurl
-                              %td.p-3.text-center
-                                = wx_user.avatarurl
-              .row
-                .col-md-12
-                  #allmap
+        -#
+          .row
+            .col-md-12
+              #allmap
                             
               
       = render "layouts/bootstrap/card"

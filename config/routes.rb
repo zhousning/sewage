@@ -80,6 +80,11 @@ Rails.application.routes.draw do
       post 'report_create'
     end
   end
+  resources :wx_resources, only: [] do
+    collection do
+      post 'img_upload'
+    end
+  end
 
   resources :notices
   #resources :articles do

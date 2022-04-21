@@ -88,14 +88,13 @@ class WxTasksController < ApplicationController
     latitude = params[:latitude]
     state = params[:state]
     question = params[:question]
-    imgs = params[:imgs]
-    puts imgs
+    imgs = params[:imgs].join(',')
     wxuser = WxUser.find_by(:openid => params[:id])
     @factory = wxuser.factory
     @device = @factory.devices.find(iddecode(device_id))
     @task = @factory.tasks.find(iddecode(task_id))
 
-    @task_report = TaskReport.new(:task => @task, :wx_user => wxuser, :device => @device, :longitude => longitude, :latitude => latitude, :question => question, :state => state) 
+    @task_report = TaskReport.new(:task => @task, :wx_user => wxuser, :device => @device, :longitude => longitude, :latitude => latitude, :question => question, :state => state, :img => imgs) 
 
     if @task_report.save
       respond_to do |f|
@@ -124,13 +123,18 @@ class WxTasksController < ApplicationController
     @task.task_reports.order('created_at DESC').each do |rep|
       user = rep.wx_user
       inspectors << user.name + ' ' + rep.created_at.strftime('%Y-%m-%d %H:%M:%S')
+      imgs = rep.img.split(',')
+      img_arr = []
+      imgs.each do |img|
+        img_arr << Setting.systems.host + img
+      end
       reports << {
         name: user.name,
         avatar: user.avatarurl,
         time: rep.created_at.strftime('%Y-%m-%d %H:%M:%S'),
         question: rep.question,
         state: rep.state,
-        imgs: []
+        imgs: img_arr 
       }
     end
    

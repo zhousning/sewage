@@ -10,6 +10,7 @@ class CreateTaskReports < ActiveRecord::Migration
     
       t.string :question,  null: false, default: Setting.systems.default_str
     
+      t.text :img,  null: false, default: Setting.systems.default_str
 
     
 

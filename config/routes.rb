@@ -80,6 +80,12 @@ Rails.application.routes.draw do
       post 'report_create'
     end
   end
+  resources :wx_task_logs, only: [] do
+    collection do
+      get 'task_start'
+      get 'task_end'
+    end
+  end
   resources :wx_resources, only: [] do
     collection do
       post 'img_upload'
@@ -158,6 +164,10 @@ Rails.application.routes.draw do
     get :query_all, :on => :collection
   end
   resources :task_reports do
+    get :download_append, :on => :member
+    get :query_all, :on => :collection
+  end
+  resources :task_logs do
     get :download_append, :on => :member
     get :query_all, :on => :collection
   end

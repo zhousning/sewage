@@ -24,6 +24,8 @@ class WxUser < ActiveRecord::Base
 
   has_many :task_reports
 
+  has_many :task_logs
+
  STATESTR = %w(ongoing completed)
   STATE = [Setting.states.ongoing, Setting.states.completed]
   validates_inclusion_of :state, :in => STATE
@@ -44,5 +46,13 @@ class WxUser < ActiveRecord::Base
 
   def completed
     update_attribute :state, Setting.states.completed
+  end
+
+  def task_pending
+    update_attribute :task_state, Setting.states.pending
+  end
+
+  def task_working
+    update_attribute :task_state, Setting.states.working
   end
 end

@@ -14,6 +14,7 @@ class CreateWxUsers < ActiveRecord::Migration
       t.string :language, null: false, default: ""
 
       t.string :state, null: false, default: Setting.states.ongoing 
+      t.string :task_state, null: false, default: Setting.states.pending
 
       t.references :factory
 

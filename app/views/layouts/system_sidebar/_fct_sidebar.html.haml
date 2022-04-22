@@ -9,9 +9,9 @@
               巡检管理
             .card-body.py-0.pl-2.pr-0
               = link_to factory_tasks_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0 #{(/task/ =~ request.path).nil? ? '' : 'text-success'} " do
-                = fa_icon "edit", text: Setting.tasks.label, class: "ml-4 mr-2"  
+                = fa_icon "tasks", text: Setting.tasks.label, class: "ml-4 mr-2"  
               = link_to factory_devices_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0 #{(/device/ =~ request.path).nil? ? '' : 'text-success'} " do
-                = fa_icon "list-alt", text: Setting.devices.label, class: "ml-4 mr-2"  
+                = fa_icon "sitemap", text: Setting.devices.label, class: "ml-4 mr-2"  
               = link_to factory_inspectors_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0 #{(/inspect/ =~ request.path).nil? ? '' : 'text-success'} " do
                 = fa_icon "edit", text: Setting.patrolers.label, class: "ml-4 mr-2"  
               -#

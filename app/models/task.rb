@@ -4,6 +4,8 @@ class Task < ActiveRecord::Base
   has_many :enclosures, :dependent => :destroy
   accepts_nested_attributes_for :enclosures, reject_if: :all_blank, allow_destroy: true
 
+  has_many :task_logs, :dependent => :destroy
+  accepts_nested_attributes_for :task_logs, reject_if: :all_blank, allow_destroy: true
 
   has_many :task_wxusers, :dependent => :destroy
   has_many :wx_users, :through => :task_wxusers

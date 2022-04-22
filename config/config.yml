@@ -166,6 +166,7 @@ defaults:
     awaiting: awaiting
     pending: pending
     passed: passed
+    working: working
   trade_orders: &7
     number: 订单编号
     price: 价格
@@ -377,6 +378,11 @@ development:
     latitude: 维度
     state: 运行状态
     question: 问题
+  task_logs:
+    label: 巡检日志
+    start_time: 开始时间
+    end_time: 结束时间
+    state: 状态
 test: 
 production:
   admins: *1

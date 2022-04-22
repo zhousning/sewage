@@ -153,6 +153,8 @@ defaults:
     pending: 待审核
     rejected: 不通过
     passed: 通过
+    gdkey: adb51a0594db1cd83d9e209f5cb095dd
+    gdname: 巡检系统
   states: &6
     opening: opening
     selecting: selecting
@@ -383,6 +385,20 @@ development:
     start_time: 开始时间
     end_time: 结束时间
     state: 状态
+  gdservices:
+    label: 高德地图服务
+    key: key
+    name: name
+    sid: sid
+  gdteminals:
+    label: 高德地图终端
+    name: name
+    tid: tid
+    desc: desc
+  gdtraces:
+    label: 高德地图轨迹管理
+    trid: trid
+    trname: trname
 test: 
 production:
   admins: *1

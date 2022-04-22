@@ -171,6 +171,14 @@ Rails.application.routes.draw do
     get :download_append, :on => :member
     get :query_all, :on => :collection
   end
+  resources :gdservices do
+    resources :gdteminals do
+    end
+  end
+  resources :gdteminals do
+    resources :gdtraces do
+    end
+  end
   resources :flower
 
 end

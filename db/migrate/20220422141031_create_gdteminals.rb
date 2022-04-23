@@ -13,6 +13,7 @@ class CreateGdteminals < ActiveRecord::Migration
 
     
 
+      t.references :wx_user 
     
       t.references :gdservice
     

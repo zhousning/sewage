@@ -11,6 +11,7 @@ class CreateGdtraces < ActiveRecord::Migration
 
     
 
+      t.references :task_log
     
       t.references :gdteminal
     

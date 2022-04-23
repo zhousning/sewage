@@ -35,6 +35,9 @@ class WxUsersController < ApplicationController
       unless target
         wxuser = WxUser.new(:openid => openid)
         wxuser.save
+        create_gdteminal(wx_user)
+      else
+        create_gdteminal(target) unless target.gdteminal
       end
 
       respond_to do |f|
@@ -85,4 +88,31 @@ class WxUsersController < ApplicationController
     def wx_user_params
       params.require(:wx_user).permit(:nickname, :avatarurl, :gender, :city, :province, :country, :language, :name, :phone)
     end                                  
+
+    def create_gdteminal(wx_user)
+      url = "https://tsapi.amap.com/v1/track/terminal/add"
+      @gdservice = Gdservice.where(:name => Setting.systems.gdname).first
+      name = wx_user.factory.name + wx_user.name + Time.now.to_i.to_s + "%04d" % [rand(10000)]
+      params = {
+        key: @gdservice.key,
+        sid: @gdservice.sid,
+        name: name
+      }
+      res = RestClient.post url, params
+      obj = JSON.parse(res)
+      issave = false
+      if obj["errcode"] == 10000
+        tid = obj['data']['tid']
+        name = obj['data']['name']
+        @gdteminal = Gdteminal.new(:tid => tid, :name => name, :gdservice => @gdservice, :wx_user => wx_user)
+        if @gdteminal.save
+          issave = true
+        else
+          issave = false 
+        end
+      else
+        issave = false 
+      end
+      issave
+    end
 end

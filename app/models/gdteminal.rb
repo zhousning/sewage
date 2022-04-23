@@ -4,6 +4,7 @@ class Gdteminal < ActiveRecord::Base
 
 
 
+  belongs_to :wx_user
 
   belongs_to :gdservice
 

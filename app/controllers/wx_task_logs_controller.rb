@@ -7,9 +7,16 @@ class WxTaskLogsController < ApplicationController
     @task_log = TaskLog.new(:task => @task, :wx_user => wxuser, :start_time => Time.now)
 
     if @task_log.save!
-      wxuser.task_working
-      respond_to do |f|
-        f.json{ render :json => {:state => 'success', :task_log_id => @task_log.id}.to_json}
+      trace_id = create_gdtrace(wx_user, @task_log)
+      if trace_id
+        wxuser.task_working
+        respond_to do |f|
+          f.json{ render :json => {:state => 'success', :task_log_id => @task_log.id, :trace_id => trace_id}.to_json}
+        end
+      else
+        respond_to do |f|
+          f.json{ render :json => {:state => 'error'}.to_json}
+        end
       end
     else
       respond_to do |f|
@@ -33,4 +40,29 @@ class WxTaskLogsController < ApplicationController
       end
     end
   end
+  
+  private 
+    def create_gdtrace(wx_user, task_log)
+      url = "https://tsapi.amap.com/v1/track/trace/add"
+      @gdteminal = wxuser.gdteminal
+      @gdservice = @teminal.gdservice
+      params = {
+        key: @gdservice.key,
+        sid: @gdservice.sid,
+        tid: @gdteminal.tid
+      }
+      res = RestClient.post url, params
+      obj = JSON.parse(res)
+      trace_id = nil 
+      if obj["errcode"] == 10000
+        trid = obj['data']['trid']
+        trname = obj['data']['trname']
+        @gdtrace = Gdtrace.new(:trid => trid, :trname => trname, :gdteminal => @gdteminal, :task_log => task_log)
+        if @gdtrace.save
+          trace_id = @gdtrace.trid
+        end
+      end
+      trace_id
+    end
+
 end

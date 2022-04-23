@@ -26,6 +26,8 @@ class WxUser < ActiveRecord::Base
 
   has_many :task_logs
 
+  has_one :gdteminal
+
  STATESTR = %w(ongoing completed)
   STATE = [Setting.states.ongoing, Setting.states.completed]
   validates_inclusion_of :state, :in => STATE

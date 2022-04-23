@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     collection do
       get 'task_start'
       get 'task_end'
+      post 'accept_position'
     end
   end
   resources :wx_resources, only: [] do

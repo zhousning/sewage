@@ -41,7 +41,7 @@ class WxTaskLogsController < ApplicationController
   end
 
   #params openid  task_log_id
-  def accept_position
+  def accept_points
     points = params[:points]
     wxuser = WxUser.find_by(:openid => params[:id])
     task_log = wxuser.task_logs.find(params[:task_log_id])
@@ -58,9 +58,9 @@ class WxTaskLogsController < ApplicationController
     @gdteminal = wxuser.gdteminal
     @gdservice = @gdteminal.gdservice
 
-    puts '...........j'
-    puts points
-    puts '...........j'
+
+    points = points.to_json
+
     params = {
       key: @gdservice.key,
       sid: @gdservice.sid,
@@ -74,7 +74,7 @@ class WxTaskLogsController < ApplicationController
     puts obj
     puts '**************'
     trace_id = nil 
-    if obj["errcode"] == 10000
+    if obj["errcode"] != 10000
       errorpoints = obj['data']['errorpoints']
       @upload_error.error errorpoints
     end

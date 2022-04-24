@@ -7,7 +7,7 @@ class WxTaskLogsController < ApplicationController
     @task_log = TaskLog.new(:task => @task, :wx_user => wxuser, :start_time => Time.now)
 
     if @task_log.save!
-      trace_id = create_gdtrace(wx_user, @task_log)
+      trace_id = create_gdtrace(wxuser, @task_log)
       if trace_id
         wxuser.task_working
         respond_to do |f|
@@ -33,9 +33,6 @@ class WxTaskLogsController < ApplicationController
     if @task_log.update_attributes!(:end_time => Time.now)
       wxuser.task_pending
       upload_position(wxuser, @task_log, points)
-      respond_to do |f|
-        f.json{ render :json => {:state => 'success'}.to_json}
-      end
     else
       respond_to do |f|
         f.json{ render :json => {:state => 'error'}.to_json}
@@ -61,6 +58,9 @@ class WxTaskLogsController < ApplicationController
     @gdteminal = wxuser.gdteminal
     @gdservice = @gdteminal.gdservice
 
+    puts '...........j'
+    puts points
+    puts '...........j'
     params = {
       key: @gdservice.key,
       sid: @gdservice.sid,
@@ -70,6 +70,9 @@ class WxTaskLogsController < ApplicationController
     }
     res = RestClient.post url, params
     obj = JSON.parse(res)
+    puts '**************'
+    puts obj
+    puts '**************'
     trace_id = nil 
     if obj["errcode"] == 10000
       errorpoints = obj['data']['errorpoints']
@@ -77,12 +80,12 @@ class WxTaskLogsController < ApplicationController
     end
 
     respond_to do |f|
-      f.json{ render :json => {:state => 'complete'}.to_json}
+      f.json{ render :json => {:state => 'success'}.to_json}
     end
   end
 
   private 
-    def create_gdtrace(wx_user, task_log)
+    def create_gdtrace(wxuser, task_log)
       url = "https://tsapi.amap.com/v1/track/trace/add"
       @gdteminal = wxuser.gdteminal
       @gdservice = @gdteminal.gdservice
@@ -93,11 +96,15 @@ class WxTaskLogsController < ApplicationController
       }
       res = RestClient.post url, params
       obj = JSON.parse(res)
+      puts '..........'
+      puts obj
+      puts '..........'
+
       trace_id = nil 
       if obj["errcode"] == 10000
         trid = obj['data']['trid']
-        trname = obj['data']['trname']
-        @gdtrace = Gdtrace.new(:trid => trid, :trname => trname, :gdteminal => @gdteminal, :task_log => task_log)
+        #trname = obj['data']['trname']
+        @gdtrace = Gdtrace.new(:trid => trid, :gdteminal => @gdteminal, :task_log => task_log)
         if @gdtrace.save
           trace_id = @gdtrace.trid
         end

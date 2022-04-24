@@ -12,7 +12,35 @@ class WxTasksController < ApplicationController
     @factory = wxuser.factory
 
     #items = @factory.tasks.where(['task_date > ? and state = ?', Date.yesterday, Setting.states.ongoing])
-    items = @factory.tasks.where(['task_date > ? ', Date.yesterday])
+    items = @factory.tasks.where(['task_date = ? ', Date.today])
+   
+    obj = []
+    items.each do |item|
+      inspectors = item.wx_users
+      arr = []
+      inspectors.each do |ispt|
+        arr << ispt.name + ispt.phone
+      end
+      obj << {
+        #:factory => idencode(factory.id),
+        :task_id => item.id,
+        :task_date => item.task_date,
+        :desc => item.des,
+        :inspectors => arr
+      
+      }
+    end
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
+  end
+
+  def query_plan
+    wxuser = WxUser.find_by(:openid => params[:id])
+    @factory = wxuser.factory
+
+    #items = @factory.tasks.where(['task_date > ? and state = ?', Date.yesterday, Setting.states.ongoing])
+    items = @factory.tasks.where(['task_date >= ? ', Date.today])
    
     obj = []
     items.each do |item|

@@ -6,6 +6,7 @@ class WxUsersController < ApplicationController
 
   def update 
     wxuser = WxUser.find_by(:openid => params[:id])
+    create_gdteminal(wxuser) unless wxuser.gdteminal
     respond_to do |f|
       if wxuser.update(wx_user_params)
         f.json { render :json => {:status => "wxuser update success" }.to_json}
@@ -35,17 +36,17 @@ class WxUsersController < ApplicationController
       unless target
         wxuser = WxUser.new(:openid => openid)
         wxuser.save
-        create_gdteminal(wx_user)
+        create_gdteminal(wxuser)
       else
         create_gdteminal(target) unless target.gdteminal
       end
 
       respond_to do |f|
-        f.json { render :json => { :openId => openid }.to_json }
+        f.json { render :json => {:state => 'success', :openId => openid }.to_json }
       end
     else
       respond_to do |f|
-        f.json { render :json => { :openId => body }.to_json }
+        f.json { render :json => {:state => 'error' }.to_json }
       end
     end
   end
@@ -92,7 +93,7 @@ class WxUsersController < ApplicationController
     def create_gdteminal(wx_user)
       url = "https://tsapi.amap.com/v1/track/terminal/add"
       @gdservice = Gdservice.where(:name => Setting.systems.gdname).first
-      name = wx_user.factory.name + wx_user.name + Time.now.to_i.to_s + "%04d" % [rand(10000)]
+      name = 'vuserid' + wx_user.id.to_s + 'time' + Time.now.to_i.to_s + "%04d" % [rand(10000)]
       params = {
         key: @gdservice.key,
         sid: @gdservice.sid,
@@ -100,6 +101,9 @@ class WxUsersController < ApplicationController
       }
       res = RestClient.post url, params
       obj = JSON.parse(res)
+      puts '..........'
+      puts obj
+      puts '..........'
       issave = false
       if obj["errcode"] == 10000
         tid = obj['data']['tid']

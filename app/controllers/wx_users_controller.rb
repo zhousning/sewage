@@ -101,9 +101,6 @@ class WxUsersController < ApplicationController
       }
       res = RestClient.post url, params
       obj = JSON.parse(res)
-      puts '..........'
-      puts obj
-      puts '..........'
       issave = false
       if obj["errcode"] == 10000
         tid = obj['data']['tid']

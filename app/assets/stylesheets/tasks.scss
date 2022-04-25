@@ -5,3 +5,13 @@
   margin:0;
   font-family:"微软雅黑";
 }
+#loadingTip {
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  padding: 3px 10px;
+  background: red;
+  color: #fff;
+  font-size: 14px;
+}

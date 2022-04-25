@@ -172,6 +172,7 @@ Rails.application.routes.draw do
   resources :task_logs do
     get :download_append, :on => :member
     get :query_all, :on => :collection
+    get :query_trace, :on => :collection
   end
   resources :gdservices do
     resources :gdteminals do

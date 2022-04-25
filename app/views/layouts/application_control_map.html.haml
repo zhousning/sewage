@@ -2,10 +2,12 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
+    %meta{:name => "viewport", :content => "width=device-width, user-scalable=no,initial-scale=1"}
     %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
     %title= "#{yield(:title)} - #{t('.site_title')}"
-    %script{:type => "text/javascript", :src => "//api.map.baidu.com/api?v=2.0&ak=DKeud6zCn48QYOZxfoOCf8Ymh9eArFHy"}
+    %script{:type => "text/javascript", :src => "http://webapi.amap.com/maps?v=2.0&key=adb51a0594db1cd83d9e209f5cb095dd"}
+    %script{:type => "text/javascript", :src => "http://webapi.amap.com/ui/1.1/main.js?v=1.1.1"}
+    %script{:type => "text/javascript", :src => ""}
     = javascript_include_tag 'application'
     = stylesheet_link_tag    'application', media: 'all'
     = csrf_meta_tags

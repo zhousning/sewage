@@ -35,6 +35,62 @@ class TaskLogsController < ApplicationController
   end
 
 
+  #start_stamp = Time.parse(inspect_date + " 00:00:00").to_i
+  #end_stamp   = Time.parse(inspect_date + " 23:00:00").to_i
+  def query_trace
+    inspect_date = params[:search_date]
+    inspector = iddecode(params[:inspector])
+    @wx_user = WxUser.find(inspector)
+
+    @task = @wx_user.tasks.where(:task_date => inspect_date).first
+    @task_logs = @task.task_logs
+
+    obj = []
+    @task_logs.each do |log|
+      puts log.id
+      if log.gdtrace
+        trid = log.gdtrace.trid
+        start_time = log.start_time 
+        end_time   = log.end_time
+        #name = start_time.strftime('%Y-%m-%d %H:%M:%S') + ' -> ' + end_time.strftime('%Y-%m-%d %H:%M:%S')
+        name = start_time.to_s + ' -> ' + end_time.to_s
+        path = get_points(@wx_user, trid) 
+        obj << {:name => name, :path => path} unless path.blank?
+      end
+    end
+
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
+  end
+
+  #{"name":"北京 -> 乌鲁木齐","path":[[116.405289,39.904987],[116.406265,39.905015]]}
+  def get_points(wxuser, trid) 
+    url = "https://tsapi.amap.com/v1/track/terminal/trsearch"
+    @gdteminal = wxuser.gdteminal
+    @gdservice = @gdteminal.gdservice
+
+    params = {
+      key: @gdservice.key,
+      sid: @gdservice.sid,
+      tid: @gdteminal.tid,
+      trid: trid
+    }
+    puts params
+    res = RestClient.get url, params: params
+    obj = JSON.parse(res)
+    puts '**************'
+    puts obj
+    puts '**************'
+    locations = []
+    if obj["errcode"] == 10000
+      points = obj['data']['tracks'][0]['points']
+      points.each do |point|
+        locations << point['location'].split(',')
+      end
+    end
+    locations
+  end
 
    
   def show

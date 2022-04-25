@@ -64,9 +64,29 @@ class TaskLogsController < ApplicationController
     end
   end
 
-  #{"name":"北京 -> 乌鲁木齐","path":[[116.405289,39.904987],[116.406265,39.905015]]}
-  def get_points(wxuser, trid) 
-    url = "https://tsapi.amap.com/v1/track/terminal/trsearch"
+  def query_latest_point
+    @factory = current_user.factories.first
+    #@task = @factory.tasks.where(:task_date => Date.today).first
+    @task = @factory.tasks.where(:task_date => Date.new(2022,4,24)).first
+
+    @wx_users = @task.wx_users
+
+    obj = []
+    @wx_users.each do |user|
+      name = user.name
+      point = latest_point(user) 
+      obj << {name: name, point: point} unless point.blank?
+    end
+
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
+  end
+
+
+  #[123213,3123123]
+  def latest_point(wxuser) 
+    url = "https://tsapi.amap.com/v1/track/terminal/lastpoint"
     @gdteminal = wxuser.gdteminal
     @gdservice = @gdteminal.gdservice
 
@@ -74,22 +94,19 @@ class TaskLogsController < ApplicationController
       key: @gdservice.key,
       sid: @gdservice.sid,
       tid: @gdteminal.tid,
-      trid: trid
+      correction: 'n'
     }
-    puts params
     res = RestClient.get url, params: params
     obj = JSON.parse(res)
     puts '**************'
     puts obj
     puts '**************'
-    locations = []
+    point = []
     if obj["errcode"] == 10000
-      points = obj['data']['tracks'][0]['points']
-      points.each do |point|
-        locations << point['location'].split(',')
-      end
+      point = obj['data']['location'].split(',')
+      locatetime = obj['data']['locatetime']
     end
-    locations
+    point
   end
 
    
@@ -163,6 +180,32 @@ class TaskLogsController < ApplicationController
       params.require(:task_log).permit( :start_time, :end_time, :state)
     end
   
+    #{"name":"北京 -> 乌鲁木齐","path":[[116.405289,39.904987],[116.406265,39.905015]]}
+    def get_points(wxuser, trid) 
+      url = "https://tsapi.amap.com/v1/track/terminal/trsearch"
+      @gdteminal = wxuser.gdteminal
+      @gdservice = @gdteminal.gdservice
+
+      params = {
+        key: @gdservice.key,
+        sid: @gdservice.sid,
+        tid: @gdteminal.tid,
+        trid: trid
+      }
+      res = RestClient.get url, params: params
+      obj = JSON.parse(res)
+      #puts '**************'
+      #puts obj
+      #puts '**************'
+      locations = []
+      if obj["errcode"] == 10000
+        points = obj['data']['tracks'][0]['points']
+        points.each do |point|
+          locations << point['location'].split(',')
+        end
+      end
+      locations
+    end
   
   
 end

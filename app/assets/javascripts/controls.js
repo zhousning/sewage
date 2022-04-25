@@ -1,9 +1,39 @@
 $(".controls.index").ready(function() {
-  if ($(".controls.index, .controls.search").length > 0) {
-    //addSearchParam();
-    $('.search-blank-submit').click(function() {
-      controlSearch();
-    })
+  if ($(".controls.index").length > 0) {
+    var map = new AMap.Map('allmap', {
+      resizeEnable: true,
+      zoom: 11 
+      //center: [116.397428, 39.90923]
+    });
+
+    var marker1 = new AMap.Marker({
+      icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+      position: [116.405467, 39.907761],
+      anchor:'bottom-center'
+    });
+    var marker2 = new AMap.Marker({
+      icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+      position: [116.305467, 39.607761],
+      anchor:'bottom-center'
+    });
+
+    setInterval(function(){
+      url = "/task_logs/query_latest_point"
+      $.get(url).done(function (obj) {
+        map.clearMap();
+        var arr = [];
+        for (var i=0; i<obj.length; i++) {
+          var point = obj[i]['point'];
+          var marker = new AMap.Marker({
+            icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: point,
+            anchor:'bottom-center'
+          });
+          arr.push(marker)
+        }
+        map.add(arr)
+      })
+    }, 10000)
   }
 
 });

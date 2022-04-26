@@ -66,16 +66,18 @@ class TaskLogsController < ApplicationController
 
   def query_latest_point
     @factory = current_user.factories.first
-    #@task = @factory.tasks.where(:task_date => Date.today).first
-    @task = @factory.tasks.where(:task_date => Date.new(2022,4,24)).first
-
-    @wx_users = @task.wx_users
+    @task = @factory.tasks.where(:task_date => Date.today).first
+    #@task = @factory.tasks.where(:task_date => Date.new(2022,4,24)).first
 
     obj = []
-    @wx_users.each do |user|
-      name = user.name
-      point = latest_point(user) 
-      obj << {name: name, point: point} unless point.blank?
+    if @task && @task.wx_users
+      @wx_users = @task.wx_users
+
+      @wx_users.each do |user|
+        name = user.name
+        point = latest_point(user) 
+        obj << {name: name, point: point} unless point.blank?
+      end
     end
 
     respond_to do |f|
@@ -165,15 +167,6 @@ class TaskLogsController < ApplicationController
     @task_log.destroy
     redirect_to :action => :index
   end
-   
-
-  
-
-  
-
-  
-  
-  
 
   private
     def task_log_params
@@ -190,17 +183,21 @@ class TaskLogsController < ApplicationController
         key: @gdservice.key,
         sid: @gdservice.sid,
         tid: @gdteminal.tid,
-        trid: trid
+        trid: trid,
+        page: 1,
+        pagesize: 800,
+        correction: 'denoise=1,mapmatch=1,attribute=0,threshold=0,mode=driving'
       }
       res = RestClient.get url, params: params
       obj = JSON.parse(res)
-      #puts '**************'
-      #puts obj
-      #puts '**************'
+      puts '**************'
+      puts obj
+      puts '**************'
       locations = []
       if obj["errcode"] == 10000
         points = obj['data']['tracks'][0]['points']
         points.each do |point|
+          puts point
           locations << point['location'].split(',')
         end
       end

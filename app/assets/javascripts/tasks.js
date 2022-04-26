@@ -20,30 +20,30 @@ $(".tasks").ready(function() {
           alert('图片加载失败！');
         }
 
-        for (var i=0; i<d.length; i++) {
-          var navg = pathSimplifierIns.createPathNavigator(i, {
-              loop: true,
-              speed: 1000000,
-              pathNavigatorStyle: {
-                  width: 24,
-                  height: 24,
-                  //使用图片
-                  //content: PathSimplifier.Render.Canvas.getImageContent('./imgs/plane.png', onload, onerror),
-                  strokeStyle: null,
-                  fillStyle: null,
-                  //经过路径的样式
-                  pathLinePassedStyle: {
-                      lineWidth: 6,
-                      strokeStyle: 'green',
-                      dirArrowStyle: {
-                          stepSpace: 15,
-                          strokeStyle: 'white'
-                      }
-                  }
-              }
-          });
-          navg.start();
-        }
+        //for (var i=0; i<d.length; i++) {
+        //  var navg = pathSimplifierIns.createPathNavigator(i, {
+        //      loop: true,
+        //      speed: 1000000,
+        //      pathNavigatorStyle: {
+        //          width: 24,
+        //          height: 24,
+        //          //使用图片
+        //          //content: PathSimplifier.Render.Canvas.getImageContent('./imgs/plane.png', onload, onerror),
+        //          strokeStyle: null,
+        //          fillStyle: null,
+        //          //经过路径的样式
+        //          pathLinePassedStyle: {
+        //              lineWidth: 6,
+        //              strokeStyle: 'green',
+        //              dirArrowStyle: {
+        //                  stepSpace: 15,
+        //                  strokeStyle: 'white'
+        //              }
+        //          }
+        //      }
+        //  });
+        //  navg.start();
+        //}
       });
 
     });

@@ -3,7 +3,19 @@ class ControlsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @factorie = current_user.factories
+    @factorie = current_user.factories.first
+    arr = [@factorie.lnt, @factorie.lat]
+    gon.center = arr
+    wx_users = @factorie.wx_users
+    @works = []
+    @pends = []
+    wx_users.each do |user|
+      if user.task_state == Setting.states.working
+        @works << user 
+      else
+        @pends << user
+      end
+    end
   end
 
   def search

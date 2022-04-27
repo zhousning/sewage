@@ -26,7 +26,7 @@
                       %td.p-2.text-center
                         = f.label Setting.tasks.task_date, :class => "text-center"
                       %td.p-2.text-center
-                        = f.date_field :task_date, :class => "form-control" , :required => true, :min => Date.today
+                        = f.date_field :task_date, :class => "form-control" , :required => true, :min => Date.today, :value => Date.today
                       
                     %tr
                       %td.p-2.text-center

@@ -50,8 +50,8 @@ class WxTaskLogsController < ApplicationController
 
   def array_slice(arr, start_flag, end_flag, gdservice, gdteminal, gdtrace)
     url = "https://tsapi.amap.com/v1/track/point/upload"
-    new_array = arr[start_flag..end_flag]
-    if new_array
+    new_array = arr.nil? ? [] : arr[start_flag..end_flag]
+    if !new_array.blank?
       points = new_array.to_json
       params = {
         key: gdservice.key,
@@ -86,7 +86,7 @@ class WxTaskLogsController < ApplicationController
     end_flag   = 80
 
     puts '777777777777'
-    puts points.size
+    puts points
     puts '777777777777'
     array_slice(points, start_flag, end_flag, @gdservice, @gdteminal, @gdtrace)
 

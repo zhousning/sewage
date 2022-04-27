@@ -148,7 +148,7 @@ defaults:
     btn_show: 详情
     btn_delete: 删除
     btn_save: 保存
-    company_name: 山东公用水务集团农污巡检系统
+    company_name: 山东公用水务集团北斗轨迹服务系统
     opening: 新用户
     pending: 待审核
     rejected: 不通过
@@ -386,17 +386,17 @@ development:
     end_time: 结束时间
     state: 状态
   gdservices:
-    label: 高德地图服务
+    label: 北斗地图服务
     key: key
     name: name
     sid: sid
   gdteminals:
-    label: 高德地图终端
+    label: 北斗地图终端
     name: name
     tid: tid
     desc: desc
   gdtraces:
-    label: 高德地图轨迹管理
+    label: 北斗地图轨迹管理
     trid: trid
     trname: trname
 test: 

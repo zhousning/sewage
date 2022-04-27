@@ -4,10 +4,22 @@
 .container-fluid
   .row
     = render "layouts/control_sidebar"
-    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
-      - content_for :card_body do
-        .row
-          .col-md-12
-            #allmap
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-0{:role => "main"}
+      .card.shadow-sm.border-0
+        .card-body.px-2.pt-2
+          .row
+            .col-md-2.control-work-state
+              %ul.list-group
+                - @works.each do |user|
+                  %li.list-group-item.d-flex.justify-content-between.align-items-center
+                    = user.name
+                    %span.badge.badge-primary.badge-pill
+                      工作中
+                - @pends.each do |user|
+                  %li.list-group-item.d-flex.justify-content-between.align-items-center
+                    = user.name
+              
+            .col-md-12
+              #allmap
 
       = render "layouts/bootstrap/card"

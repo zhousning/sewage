@@ -4,19 +4,6 @@
   .row
     = render "layouts/control_sidebar"
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
-      .container-fluid.px-0    
-        %ul.border.bg-white.list-group.list-group-horizontal.pl-3.py-2
-          %li.list-group-item.pl-0.border-0
-            = select_tag "inspector", options_for_my_factory(@wx_users), :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.border-0.pl-0.d-flex.flex-row
-            = date_field_tag 'inspect_date', nil, class: 'form-control mr-1', :value => @task.task_date, :min => @task.task_date, :max => @task.task_date
-          %li.list-group-item.pl-0.border-0
-            %button#report-search.button.button-royal.button-small{:type => "button"}
-              查询
-
-        .row
-          .col-md-12
-            #allmap
 
       - content_for :card_header do
         %h5
@@ -79,6 +66,19 @@
                       %td.p-2.text-left.align-middle
                         - rept.img.split(',').each do |img|
                           = image_tag img, :class => 'h-100px'
+        .container-fluid.px-0    
+          %ul.border.bg-white.list-group.list-group-horizontal.pl-3.py-2
+            %li.list-group-item.pl-0.border-0
+              = select_tag "inspector", options_for_my_factory(@wx_users), :include_blank=>false, :class=>"form-control"
+            %li.list-group-item.border-0.pl-0.d-flex.flex-row
+              = date_field_tag 'inspect_date', nil, class: 'form-control mr-1', :value => @task.task_date, :min => @task.task_date, :max => @task.task_date
+            %li.list-group-item.pl-0.border-0
+              %button#report-search.button.button-royal.button-small{:type => "button"}
+                查询
+
+          .row
+            .col-md-12
+              #allmap
             -#
               %ul.list-unstyled
                 - @task_reports.each do |rept|

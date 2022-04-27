@@ -2,29 +2,29 @@ $(".controls.index").ready(function() {
   if ($(".controls.index").length > 0) {
     var map = new AMap.Map('allmap', {
       resizeEnable: true,
-      zoom: 11 
-      //center: [116.397428, 39.90923]
+      zoom: 11, 
+      center: gon.center 
     });
 
-    setInterval(function(){
-      url = "/task_logs/query_latest_point"
-      $.get(url).done(function (obj) {
-        if ( obj.length > 0 ) {
-          map.clearMap();
-          var arr = [];
-          for (var i=0; i<obj.length; i++) {
-            var point = obj[i]['point'];
-            var marker = new AMap.Marker({
-              icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-              position: point,
-              anchor:'bottom-center'
-            });
-            arr.push(marker)
-          }
-          map.add(arr)
-        }
-      })
-    }, 10000)
+    //setInterval(function(){
+    //  url = "/task_logs/query_latest_point"
+    //  $.get(url).done(function (obj) {
+    //    if ( obj.length > 0 ) {
+    //      map.clearMap();
+    //      var arr = [];
+    //      for (var i=0; i<obj.length; i++) {
+    //        var point = obj[i]['point'];
+    //        var marker = new AMap.Marker({
+    //          icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+    //          position: point,
+    //          anchor:'bottom-center'
+    //        });
+    //        arr.push(marker)
+    //      }
+    //      map.add(arr)
+    //    }
+    //  })
+    //}, 10000)
   }
 
 });

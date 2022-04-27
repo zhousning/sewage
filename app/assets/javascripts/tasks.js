@@ -1,6 +1,7 @@
 $(".tasks").ready(function() {
   if ($(".tasks.show").length > 0) {
     initMap();
+    var car = gon.car;
     $("#report-search").click(function() {
       var inspector = $("#inspector").val();
       var search_date = $("#inspect_date").val();
@@ -20,30 +21,31 @@ $(".tasks").ready(function() {
           alert('图片加载失败！');
         }
 
-        //for (var i=0; i<d.length; i++) {
-        //  var navg = pathSimplifierIns.createPathNavigator(i, {
-        //      loop: true,
-        //      speed: 1000000,
-        //      pathNavigatorStyle: {
-        //          width: 24,
-        //          height: 24,
-        //          //使用图片
-        //          //content: PathSimplifier.Render.Canvas.getImageContent('./imgs/plane.png', onload, onerror),
-        //          strokeStyle: null,
-        //          fillStyle: null,
-        //          //经过路径的样式
-        //          pathLinePassedStyle: {
-        //              lineWidth: 6,
-        //              strokeStyle: 'green',
-        //              dirArrowStyle: {
-        //                  stepSpace: 15,
-        //                  strokeStyle: 'white'
-        //              }
-        //          }
-        //      }
-        //  });
-        //  navg.start();
-        //}
+        for (var i=0; i<d.length; i++) {
+          pathSimplifierIns.createPathNavigator(i, {
+              loop: true,
+              speed: 3000,
+              pathNavigatorStyle: {
+                  width: 26,
+                  height: 52,
+                  //width: 16,
+                  //height: 32,
+                  //使用图片
+                  content: PathSimplifier.Render.Canvas.getImageContent(car, onload, onerror),
+                  strokeStyle: null,
+                  fillStyle: null,
+                  //经过路径的样式
+                  pathLinePassedStyle: {
+                      lineWidth: 6,
+                      strokeStyle: 'green',
+                      dirArrowStyle: {
+                          stepSpace: 15,
+                          strokeStyle: 'white'
+                      }
+                  }
+              }
+          }).start();
+        }
       });
 
     });
@@ -106,6 +108,7 @@ function initMap() {
     });
 
     window.pathSimplifierIns = pathSimplifierIns;
+    window.PathSimplifier = PathSimplifier;
   });
 }
 

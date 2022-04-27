@@ -47,7 +47,6 @@ class TaskLogsController < ApplicationController
 
     obj = []
     @task_logs.each do |log|
-      puts log.id
       if log.gdtrace
         trid = log.gdtrace.trid
         start_time = log.start_time 
@@ -100,9 +99,6 @@ class TaskLogsController < ApplicationController
     }
     res = RestClient.get url, params: params
     obj = JSON.parse(res)
-    puts '**************'
-    puts obj
-    puts '**************'
     point = []
     if obj["errcode"] == 10000
       point = obj['data']['location'].split(',')
@@ -190,14 +186,10 @@ class TaskLogsController < ApplicationController
       }
       res = RestClient.get url, params: params
       obj = JSON.parse(res)
-      puts '**************'
-      puts obj
-      puts '**************'
       locations = []
       if obj["errcode"] == 10000
         points = obj['data']['tracks'][0]['points']
         points.each do |point|
-          puts point
           locations << point['location'].split(',')
         end
       end

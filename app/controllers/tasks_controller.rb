@@ -38,6 +38,8 @@ class TasksController < ApplicationController
     @task = @factory.tasks.find(iddecode(params[:id]))
     @wx_users = @task.wx_users
     @task_reports = @task.task_reports.order('created_at DESC')
+    #gon.car = view_context.image_tag('car.png')
+    gon.car = ActionController::Base.helpers.image_url('car.png')
    
   end
    

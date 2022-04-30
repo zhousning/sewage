@@ -58,15 +58,22 @@ class TasksController < ApplicationController
     @wx_users = @factory.wx_users
     @task = Task.new(task_params)
     @task.factory = @factory
-    wx_users = params[:wx_users]
-    @wx_users = [] 
-    @wx_users = @factory.wx_users.find(wx_users) if wx_users
-    @task.wx_users = @wx_users
-     
-    if @task.save
-      redirect_to :action => :index
-    else
+    wx_users = @wx_users.find(params[:wx_users]) || [] 
+    result = []
+    wx_users.each do |u|
+      result << u.name unless u.tasks.where(:task_date => task_params[:task_date]).blank?
+    end
+    if !result.blank?
+      @error = result
       render :new
+    else
+      @task.wx_users = wx_users
+       
+      if @task.save
+        redirect_to :action => :index
+      else
+        render :new
+      end
     end
   end
    
@@ -85,16 +92,30 @@ class TasksController < ApplicationController
 
    
   def update
+    @wx_user_selector = []
+    @wx_users = @factory.wx_users
+    wx_users = @wx_users.find(params[:wx_users]) || []
+    wx_users.each do |u|
+      @wx_user_selector << u.id
+    end
+
     @task = @factory.tasks.find(iddecode(params[:id]))
-    wx_users = params[:wx_users]
-    @wx_users = [] 
-    @wx_users = @factory.wx_users.find(wx_users) if wx_users
-    @task.wx_users = @wx_users
-   
-    if @task.update(task_params)
-      redirect_to edit_factory_task_path(idencode(@factory.id), idencode(@task.id)) 
-    else
+    result = []
+    wx_users.each do |u|
+      task_exist = u.tasks.where(:task_date => @task.task_date).first
+      result << u.name if task_exist && task_exist.id != @task.id
+    end
+
+    if !result.blank?
+      @error = result
       render :edit
+    else
+      @task.wx_users = wx_users
+      if @task.update(task_params)
+        redirect_to edit_factory_task_path(idencode(@factory.id), idencode(@task.id)) 
+      else
+        render :edit
+      end
     end
   end
    

@@ -24,7 +24,7 @@ $(".controls.index").ready(function() {
           map.add(arr)
         }
       })
-    }, 10000)
+    }, 60000)
   }
 
 });

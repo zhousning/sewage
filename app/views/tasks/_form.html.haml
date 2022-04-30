@@ -10,10 +10,20 @@
             %ul
               - @task.errors.full_messages.each do |msg|
                 %li= msg
+        - if @error 
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            以下人员今日已被安排任务，不可重复安排任务
+            %ul
+              - @error.each do |msg|
+                %li= msg
         .row
           .col-sm-12
             %h2.text-center
               = image_tag "gykg.jpg"
+              - if @task.id
+                = @task.task_date
               = Setting.tasks.label
           .col-md-8.offset-md-2.p-5.border
             #flash_explanation
@@ -22,11 +32,12 @@
                 %table.w-100.table-bordered.day-pdt-table
                   %tbody
                     
-                    %tr
-                      %td.p-2.text-center
-                        = f.label Setting.tasks.task_date, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.date_field :task_date, :class => "form-control" , :required => true, :min => Date.today, :value => Date.today
+                    - unless @task.id
+                      %tr
+                        %td.p-2.text-center
+                          = f.label Setting.tasks.task_date, :class => "text-center"
+                        %td.p-2.text-center
+                          = f.date_field :task_date, :class => "form-control" , :required => true, :min => Date.today, :value => Date.today
                       
                     %tr
                       %td.p-2.text-center

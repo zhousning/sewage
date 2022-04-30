@@ -28,6 +28,9 @@
                     %th{:scope => "col", :'data-field' => "task_date"}
                       = Setting.tasks.task_date
 
+                    %th{:scope => "col", :'data-field' => "inspector"}
+                      = Setting.patrolers.label
+
                     %th{:scope => "col", :'data-field' => "des"}
                       = Setting.tasks.des
                   
@@ -44,6 +47,9 @@
                     
                       %td
                         = task.task_date
+                      %td
+                        - task.wx_users.each do |u|
+                          = u.name + '  '
                       %td
                         = truncate(task.des, :length => 30)
                       -#

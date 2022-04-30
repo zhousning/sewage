@@ -181,7 +181,7 @@ class TaskLogsController < ApplicationController
         tid: @gdteminal.tid,
         trid: trid,
         page: 1,
-        pagesize: 800,
+        pagesize: 980,
         correction: 'denoise=1,mapmatch=1,attribute=0,threshold=0,mode=driving'
       }
       res = RestClient.get url, params: params

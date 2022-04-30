@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
    
   def index
-    @tasks = @factory.tasks.all.page( params[:page]).per( Setting.systems.per_page )
+    @tasks = @factory.tasks.all.order('task_date DESC').page( params[:page]).per( Setting.systems.per_page )
   end
    
 

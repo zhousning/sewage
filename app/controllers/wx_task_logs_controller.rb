@@ -26,13 +26,18 @@ class WxTaskLogsController < ApplicationController
   end
 
   def task_end
+    id = params[:id]
+    task_log_id = params[:task_log_id]
     points = params[:points]
     wxuser = WxUser.find_by(:openid => params[:id])
     @task_log = TaskLog.where(:task_id => params[:task_id], :wx_user_id => wxuser.id, :id => params[:task_log_id]).first 
 
     if @task_log.update_attributes!(:end_time => Time.now)
       wxuser.task_pending
-      upload_position(wxuser, @task_log, points)
+      UploadPointWorker.perform_async(id, task_log_id, points)
+      respond_to do |f|
+        f.json{ render :json => {:state => 'success'}.to_json}
+      end
     else
       respond_to do |f|
         f.json{ render :json => {:state => 'error'}.to_json}
@@ -40,60 +45,17 @@ class WxTaskLogsController < ApplicationController
     end
   end
 
-  #params openid  task_log_id
   def accept_points
+    id = params[:id]
+    task_log_id = params[:task_log_id]
     points = params[:points]
-    wxuser = WxUser.find_by(:openid => params[:id])
-    task_log = wxuser.task_logs.find(params[:task_log_id])
-    upload_position(wxuser, task_log, points)
-  end
-
-  def array_slice(arr, start_flag, end_flag, gdservice, gdteminal, gdtrace)
-    url = "https://tsapi.amap.com/v1/track/point/upload"
-    new_array = arr.nil? ? [] : arr[start_flag..end_flag]
-    if !new_array.blank?
-      points = new_array.to_json
-      params = {
-        key: gdservice.key,
-        sid: gdservice.sid,
-        tid: gdteminal.tid,
-        trid: gdtrace.trid,
-        points: points
-      }
-      res = RestClient.post url, params
-      obj = JSON.parse(res)
-      puts '........'
-      puts obj
-      puts '........'
-      start_flag = start_flag + end_flag
-      end_flag = end_flag + end_flag
-      array_slice(new_array, start_flag, end_flag, gdservice, gdteminal, gdtrace)
-    end
-  end
-  
-  #location_dir = File.join(Rails.root, "public", "locationlog")
-  #Dir::mkdir(location_dir) unless File.directory?(location_dir)
-  #@upload_error = Logger.new( location_dir + '/upload_location.log')
-  #if obj["errcode"] != 10000
-  #  errorpoints = obj['data']['errorpoints']
-  #  @upload_error.error errorpoints
-  #end
-  def upload_position(wxuser, task_log, points) 
-    @gdtrace = task_log.gdtrace
-    @gdteminal = wxuser.gdteminal
-    @gdservice = @gdteminal.gdservice
-    start_flag = 0
-    end_flag   = 80
-
-    puts '777777777777'
-    puts points
-    puts '777777777777'
-    array_slice(points, start_flag, end_flag, @gdservice, @gdteminal, @gdtrace)
+    UploadPointWorker.perform_async(id, task_log_id, points)
 
     respond_to do |f|
       f.json{ render :json => {:state => 'success'}.to_json}
     end
   end
+
 
   private 
     def create_gdtrace(wxuser, task_log)

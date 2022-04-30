@@ -386,7 +386,7 @@ development:
     end_time: 结束时间
     state: 状态
   gdservices:
-    label: 北斗地图服务
+    label: 北斗定位终端
     key: key
     name: name
     sid: sid

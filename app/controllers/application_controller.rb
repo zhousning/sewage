@@ -29,20 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   
-  def exist_other_company?(company, user)
-    cpt_users = find_cpt_dep_user(user)
-    exist = false
-    cpt_users.each do |c|
-      if company.id != c.cpt_id 
-        exist = true 
-        break
-      end
-    end
-    exist
-  end
-
-
-
   protected
 
     def self.permission
@@ -98,7 +84,17 @@ class ApplicationController < ActionController::Base
 
     end
   
-    #wxuser = WxUser.find_by(:openid => params[:id])
+    def wxuser_exist?
+      wxuser = WxUser.find_by(:openid => params[:id])
+      flag = wxuser ? true : false
+      unless flag
+        respond_to do |f|
+          f.json{ render :json => {:state => "error"}.to_json}
+        end
+        return
+      end
+    end
+
     def chemicals_hash
       hash = Hash.new
       ctgs = ChemicalCtg.all

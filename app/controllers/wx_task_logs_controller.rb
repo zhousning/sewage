@@ -1,5 +1,6 @@
 class WxTaskLogsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_filter :wxuser_exist?
 
   def task_start
     wxuser = WxUser.find_by(:openid => params[:id])

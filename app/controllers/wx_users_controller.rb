@@ -3,6 +3,7 @@ require 'json'
 
 class WxUsersController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_filter :wxuser_exist?, :except => [:update, :get_userid]
 
   def update 
     wxuser = WxUser.find_by(:openid => params[:id])

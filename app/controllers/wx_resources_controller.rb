@@ -1,5 +1,6 @@
 class WxResourcesController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_filter :wxuser_exist?
 
   def img_upload
     uploader = WxEnclosureUploader.new

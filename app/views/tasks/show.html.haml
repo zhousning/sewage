@@ -41,6 +41,8 @@
                     %th.text-center.align-middle
                       签到时间
                     %th.text-center.align-middle
+                      站点
+                    %th.text-center.align-middle
                       站点运行状态
                     %th.text-center.align-middle
                       问题反馈
@@ -53,7 +55,9 @@
                       %td.p-2.text-center.align-middle
                         = rept.wx_user.name
                       %td.p-2.text-center.align-middle
-                        = rept.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                        = rept.created_at.strftime('%H:%M:%S')
+                      %td.p-2.text-center.align-middle
+                        = rept.device.name
                       %td.p-2.text-center.align-middle
                         - if rept.state == '0' 
                           %span.p-2.text-white.bg-success
@@ -70,7 +74,7 @@
           %ul.border.bg-white.list-group.list-group-horizontal.pl-3.py-2
             %li.list-group-item.pl-0.border-0
               = select_tag "inspector", options_for_my_factory(@wx_users), :include_blank=>false, :class=>"form-control"
-            %li.list-group-item.border-0.pl-0.d-flex.flex-row
+            %li.list-group-item.border-0.pl-0.d-none
               = date_field_tag 'inspect_date', nil, class: 'form-control mr-1', :value => @task.task_date, :min => @task.task_date, :max => @task.task_date
             %li.list-group-item.pl-0.border-0
               %button#report-search.button.button-royal.button-small{:type => "button"}

@@ -54,8 +54,53 @@ $(".tasks").ready(function() {
 
 function initMap() {
   var map = new AMap.Map('allmap', {
-      zoom: 4
+      zoom: 11 
   });
+
+  var arr = [];
+  var obj = gon.obj
+  for (var i=0; i<obj.length; i++) {
+    var longitude = obj[i].longitude;
+    var latitude = obj[i].latitude;
+    var avatar = obj[i].avatar;
+    var name = obj[i].name;
+    var site = obj[i].site;
+    var state = obj[i].state;
+    var phone = obj[i].phone;
+    var time = obj[i].time;
+    var infoWindow = mapInfoWindow(map, time, site, name, phone, avatar, longitude, latitude, state);
+    var icon = '';
+    if (state == '0') {
+      //icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png";
+      icon = gon.blocal;
+    } else {
+      //icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png";
+      icon = gon.rlocal;
+    }
+    var startIcon = new AMap.Icon({
+      size: new AMap.Size(30, 30),
+      image: icon,
+      imageSize: new AMap.Size(30, 30)
+      //imageOffset: new AMap.Pixel(-9, -3)
+    });
+
+    var marker = new AMap.Marker({
+      icon: startIcon,
+      position: [longitude, latitude],
+      anchor:'bottom-center'
+    });
+    //marker.setLabel({
+    //  offset: new AMap.Pixel(20, 20),  //设置文本标注偏移量
+    //  content: "<div class='info'>我是 marker 的 label 标签</div>", //设置文本标注内容
+    //  direction: 'right' //设置文本标注方位
+    //});
+    marker.on('click', function () {
+      infoWindow.open(map, marker.getPosition());
+    });
+    arr.push(marker)
+  }
+  map.add(arr)
+
   AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function(PathSimplifier, $) {
     if (!PathSimplifier.supportCanvas) {
       alert('当前环境不支持 Canvas！');
@@ -112,6 +157,73 @@ function initMap() {
   });
 }
 
+function mapInfoWindow(map, time, site, name, phone, avatar, longitude, latitude, state) {
+  //实例化信息窗体
+  var title = '' 
+  if (state == '0') {
+    title = site + '<span style="font-size:11px;color:green;">正常</span>'
+  } else {
+    title = site + '<span style="font-size:11px;color:red;">异常</span>'
+  }
+  var content = [];
+  content.push("<img src='" + avatar + "'>" + "经度: " + longitude + ";纬度：" + latitude);
+  content.push(name + "：" + phone);
+  content.push('时间' + "：" + time);
+  //content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+  
+  var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+  });
+  
+  //构建自定义信息窗体
+  function createInfoWindow(title, content) {
+      var info = document.createElement("div");
+      info.className = "custom-info input-card content-window-card";
+  
+      //可以通过下面的方式修改自定义窗体的宽高
+      info.style.width = "400px";
+      // 定义顶部标题
+      var top = document.createElement("div");
+      var titleD = document.createElement("div");
+      var closeX = document.createElement("img");
+      top.className = "info-top";
+      titleD.innerHTML = title;
+      closeX.src = "https://webapi.amap.com/images/close2.gif";
+      closeX.onclick = closeInfoWindow;
+  
+      top.appendChild(titleD);
+      top.appendChild(closeX);
+      info.appendChild(top);
+  
+      // 定义中部内容
+      var middle = document.createElement("div");
+      middle.className = "info-middle";
+      middle.style.backgroundColor = 'white';
+      middle.innerHTML = content;
+      info.appendChild(middle);
+  
+      // 定义底部内容
+      var bottom = document.createElement("div");
+      bottom.className = "info-bottom";
+      bottom.style.position = 'relative';
+      bottom.style.top = '0px';
+      bottom.style.margin = '0 auto';
+      var sharp = document.createElement("img");
+      sharp.src = "https://webapi.amap.com/images/sharp.png";
+      bottom.appendChild(sharp);
+      info.appendChild(bottom);
+      return info;
+  }
+  
+  //关闭信息窗体
+  function closeInfoWindow() {
+      map.clearInfoWindow();
+  }
+
+  return infoWindow;
+}
 //var button = "<button id='info-btn' class = 'button button-primary button-small' type = 'button' data-rpt ='" + item.id + "' data-fct = '" + item.fct_id +"'>查看</button>"; 
 //var factory = item.factory;
 //var search = "<a class='button button-royal button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/edit'>编辑</a><a data-confirm='确定删除吗?' class='button button-caution button-small' rel='nofollow' data-method='delete' href='/factories/" + factory + "/" + method + "/" + id + "'>删除</a>"

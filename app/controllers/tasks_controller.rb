@@ -40,7 +40,17 @@ class TasksController < ApplicationController
     @task_reports = @task.task_reports.order('created_at DESC')
     #gon.car = view_context.image_tag('car.png')
     gon.car = ActionController::Base.helpers.image_url('car.png')
+    gon.blocal = ActionController::Base.helpers.image_url('blocal.png')
+    gon.rlocal = ActionController::Base.helpers.image_url('rlocal.png')
    
+    obj = []
+    @task_reports.each do |rep|
+      user = rep.wx_user
+      device = rep.device
+      time = rep.created_at.strftime('%H:%M:%S')
+      obj << {time: time, site: device.name, name: user.name, avatar: user.avatarurl, phone: user.phone, longitude: rep.longitude, latitude: rep.latitude, state: rep.state} 
+    end
+    gon.obj = obj
   end
    
 

@@ -98,6 +98,7 @@ class ApplicationController < ActionController::Base
 
     end
   
+    wxuser = WxUser.find_by(:openid => params[:id])
     def chemicals_hash
       hash = Hash.new
       ctgs = ChemicalCtg.all

@@ -1,8 +1,26 @@
 ---
 #controller的名字均为程序中controller名称的单数，如AnalysesController为Analysis，必须有对应的model,可以建空model
 -
+  controller: controls_controller
+  actions: [index]
+-
   controller: devices_controller
-  actions: [index, new, create, edit, update, show, info, uphold, destroy, update_count, xls_download, parse_excel, query_all]
+  actions: [index, new, create, edit, update, show, uphold, destroy, xls_download, parse_excel, query_all]
 -
   controller: upholds_controller
   actions: [index, new, create, edit, update, show, destroy, update_count, xls_download, parse_excel, query_all, query_devices]
+-
+  controller: tasks_controller
+  actions: [index, new, create, edit, update, show, destroy, ongoing, finish]
+-
+  controller: task_logs_controller
+  actions: [query_trace, query_latest_point]
+-
+  controller: inspectors_controller
+  actions: [index, receive, reject]
+-
+  controller: gdservices_controller
+  actions: [index, new, create]
+-
+  controller: gdteminals_controller
+  actions: [index, new, create]

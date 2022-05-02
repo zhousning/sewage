@@ -2,7 +2,7 @@ class GdteminalsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
   before_action :find_gdservice
-  #authorize_resource
+  authorize_resource
 
    
   def index

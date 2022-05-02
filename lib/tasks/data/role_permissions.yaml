@@ -6,15 +6,49 @@
   role_name: 集团用户
   level: 1
 - 
-  role_name: 站点管理 
+  role_name: 实时定位 
+  level: 1
+  permissions: 
+    -
+      controller: controls_controller
+      actions: [index]
+    -
+      controller: task_logs_controller
+      actions: [query_latest_point]
+- 
+  role_name: 站点信息
   level: 1
   permissions: 
     -
       controller: devices_controller
-      actions: [index, new, create, edit, update, show, info, uphold, destroy, update_count, xls_download, parse_excel, query_all]
+      actions: [index, new, create, edit, update, show, uphold, destroy, xls_download, parse_excel, query_all]
     -
       controller: upholds_controller
       actions: [index, new, create, edit, update, show, destroy, update_count, xls_download, parse_excel, query_all, query_devices]
 - 
-  role_name: 巡检人员 
+  role_name: 巡检任务
   level: 1
+  permissions: 
+    -
+      controller: tasks_controller
+      actions: [index, new, create, edit, update, show, destroy, ongoing, finish]
+    -
+      controller: task_logs_controller
+      actions: [query_trace]
+- 
+  role_name: 巡检人员
+  level: 1
+  permissions: 
+    -
+      controller: inspectors_controller
+      actions: [index, receive, reject]
+- 
+  role_name: 北斗定位终端
+  level: 1
+  permissions: 
+    -
+      controller: gdservices_controller
+      actions: [index, new, create]
+    -
+      controller: gdteminals_controller
+      actions: [index, new, create]

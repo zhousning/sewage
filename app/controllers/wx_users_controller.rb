@@ -32,21 +32,31 @@ class WxUsersController < ApplicationController
       openid = body["openid"]
       session_key = body["session_key"]
 
-      target = WxUser.find_by(:openid => openid)
-      unless target
-        wxuser = WxUser.new(:openid => openid)
-        wxuser.save
-        create_gdteminal(wxuser)
+      @wxuser = WxUser.find_by(:openid => openid)
+      unless @wxuser
+        @wxuser = WxUser.new(:openid => openid)
+        @wxuser.save
+        create_gdteminal(@wxuser)
       else
-        create_gdteminal(target) unless target.gdteminal
+        create_gdteminal(@wxuser) unless @wxuser.gdteminal
       end
 
-      respond_to do |f|
-        f.json { render :json => {:state => 'success', :openId => openid }.to_json }
+      if @wxuser.nickname.blank? 
+        respond_to do |f|
+          f.json { render :json => {:state => 'userinfoerror', :openId => openid}.to_json }
+        end
+      else
+        userinfo = {
+          :nickName => @wxuser.nickname,
+          :avatarUrl => @wxuser.avatarurl
+        }
+        respond_to do |f|
+          f.json { render :json => {:state => 'success', :openId => openid, :userInfo => userinfo }.to_json }
+        end
       end
     else
       respond_to do |f|
-        f.json { render :json => {:state => 'error' }.to_json }
+        f.json { render :json => {:state => 'openiderror' }.to_json }
       end
     end
   end

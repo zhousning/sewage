@@ -1,6 +1,7 @@
 class ControlsController < ApplicationController
   layout "application_control_map"
   before_filter :authenticate_user!
+  authorize_resource
 
   def index
     @factorie = current_user.factories.first

@@ -25,18 +25,17 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 ###区分厂区和集团用户是为了sidebar显示
 @role_fct = Role.where(:name => Setting.roles.role_fct).first
 @role_grp = Role.where(:name => Setting.roles.role_grp).first
-#
-#@role_warehouse = Role.where(:name => Setting.roles.role_warehouse).first
+
+@role_position = Role.where(:name => Setting.roles.role_position).first
 @role_device    = Role.where(:name => Setting.roles.role_device).first
-#
-##厂区巡检人员管理员
-#@fct_whmgn = [@role_fct, @role_warehouse]
-##厂区站点管理员
-#@fct_dvmgn = [@role_fct, @role_device]
+@role_task    = Role.where(:name => Setting.roles.role_task).first
+@role_inspector    = Role.where(:name => Setting.roles.role_inspector).first
+@role_beidou    = Role.where(:name => Setting.roles.role_beidou).first
+
 ##厂区管理者
-@fctmgn = [@role_fct, @role_device]
+@fctmgn = [@role_fct, @role_position, @role_device, @role_task, @role_inspector]
 ##集团管理者
-@grp_mgn = [@role_grp] 
+@grp_mgn = [@role_grp, @role_beidou] 
 
 @lssw = Company.create!(:area => "梁山县", :name => "梁山农污")
 @jiax = Company.create!(:area => "嘉祥县", :name => "嘉祥农污")
@@ -80,9 +79,6 @@ user.factories << all_factories
 grp_mgn = User.create!(:phone => "1236688", :password => "swjt6688", :password_confirmation => "swjt6688", :name => "水务集团管理者", :roles => @grp_mgn, :factories => all_factories)
 
 
-WxUser.create(:name => '周宁1', :phone => '423432', :factory => Factory.first)
-WxUser.create(:name => '周宁2', :phone => '423432', :factory => Factory.first)
-WxUser.create(:name => '周宁3', :phone => '423432', :factory => Factory.first)
 #User.create!(:phone => "053769699898", :password => "lssw9898", :password_confirmation => "lssw9898", :name => "梁山农污巡检人员管理员", :roles => @fct_whmgn, :factories => [@lssw])
 #User.create!(:phone => "053769693708", :password => "lssw3708", :password_confirmation => "lssw3708", :name => "梁山农污站点管理员", :roles => @fct_dvmgn, :factories => [@lssw])
 #

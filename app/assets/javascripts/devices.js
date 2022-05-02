@@ -14,7 +14,8 @@ function getDeviceItems(method) {
       var button = "<button id='info-btn' class = 'button button-primary button-small' type = 'button' data-rpt ='" + item.id + "' data-fct = '" + item.factory +"'>查看</button>"; 
       var factory = item.factory;
       var id = item.id;
-      var search = "<a class='button button-primary button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/'>查看</a><a class='button button-royal button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/edit'>编辑</a><a class='button button-inverse button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/uphold'>巡检记录</a><a data-confirm='确定删除吗?' class='button button-caution button-small' rel='nofollow' data-method='delete' href='/factories/" + factory + "/" + method + "/" + id + "'>删除</a>"
+      //var search = "<a class='button button-primary button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/'>查看</a><a class='button button-royal button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/edit'>编辑</a><a class='button button-inverse button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/uphold'>巡检记录</a><a data-confirm='确定删除吗?' class='button button-caution button-small' rel='nofollow' data-method='delete' href='/factories/" + factory + "/" + method + "/" + id + "'>删除</a>"
+      var search = "<a class='button button-primary button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/'>查看</a><a class='button button-royal button-small mr-1' href='/factories/" + factory + "/" + method + "/" + id + "/edit'>编辑</a><a data-confirm='确定删除吗?' class='button button-caution button-small' rel='nofollow' data-method='delete' href='/factories/" + factory + "/" + method + "/" + id + "'>删除</a>"
       data.push({
         'id' : index + 1,
         'idno' : item.idno,

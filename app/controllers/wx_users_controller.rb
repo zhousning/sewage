@@ -41,22 +41,12 @@ class WxUsersController < ApplicationController
         create_gdteminal(@wxuser) unless @wxuser.gdteminal
       end
 
-      if @wxuser.nickname.blank? 
-        respond_to do |f|
-          f.json { render :json => {:state => 'userinfoerror', :openId => openid}.to_json }
-        end
-      else
-        userinfo = {
-          :nickName => @wxuser.nickname,
-          :avatarUrl => @wxuser.avatarurl
-        }
-        respond_to do |f|
-          f.json { render :json => {:state => 'success', :openId => openid, :userInfo => userinfo }.to_json }
-        end
+      respond_to do |f|
+        f.json { render :json => {:state => 'success', :openId => openid }.to_json }
       end
     else
       respond_to do |f|
-        f.json { render :json => {:state => 'openiderror' }.to_json }
+        f.json { render :json => {:state => 'error' }.to_json }
       end
     end
   end
@@ -103,7 +93,8 @@ class WxUsersController < ApplicationController
     def create_gdteminal(wx_user)
       url = "https://tsapi.amap.com/v1/track/terminal/add"
       @gdservice = Gdservice.where(:name => Setting.systems.gdname).first
-      name = 'vuserid' + wx_user.id.to_s + 'time' + Time.now.to_i.to_s + "%04d" % [rand(10000)]
+      #name = 'vuserid' + wx_user.id.to_s + 'time' + Time.now.to_i.to_s + "%04d" % [rand(10000)]
+      name = wx_user.openid
       params = {
         key: @gdservice.key,
         sid: @gdservice.sid,

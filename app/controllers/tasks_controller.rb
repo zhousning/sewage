@@ -58,7 +58,7 @@ class TasksController < ApplicationController
     @wx_users = @factory.wx_users
     @task = Task.new(task_params)
     @task.factory = @factory
-    wx_users = @wx_users.find(params[:wx_users]) || [] 
+    wx_users = !params[:wx_users].nil? ? @wx_users.find(params[:wx_users]) : [] 
     result = []
     wx_users.each do |u|
       result << u.name unless u.tasks.where(:task_date => task_params[:task_date]).blank?

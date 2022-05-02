@@ -111,7 +111,7 @@ defaults:
     super_admin: 超级管理员
     role_fct: 厂区用户
     role_grp: 集团用户
-    role_positon: 实时定位
+    role_position: 实时定位
     role_device: 站点信息
     role_task: 巡检任务
     role_inspector: 巡检人员

@@ -9,10 +9,10 @@ class WxTasksController < ApplicationController
 
   def query_all 
     wxuser = WxUser.find_by(:openid => params[:id])
-    @factory = wxuser.factory
+    #@factory = wxuser.factory
 
     #items = @factory.tasks.where(['task_date > ? and state = ?', Date.yesterday, Setting.states.ongoing])
-    items = @factory.tasks.where(['task_date = ? ', Date.today])
+    items = wxuser.tasks.where(['task_date = ? ', Date.today])
    
     obj = []
     items.each do |item|
@@ -37,10 +37,10 @@ class WxTasksController < ApplicationController
 
   def query_plan
     wxuser = WxUser.find_by(:openid => params[:id])
-    @factory = wxuser.factory
+    #@factory = wxuser.factory
 
     #items = @factory.tasks.where(['task_date > ? and state = ?', Date.yesterday, Setting.states.ongoing])
-    items = @factory.tasks.where(['task_date >= ? ', Date.today])
+    items = wxuser.tasks.where(['task_date >= ? ', Date.today])
    
     obj = []
     items.each do |item|
@@ -65,10 +65,10 @@ class WxTasksController < ApplicationController
 
   def query_finish
     wxuser = WxUser.find_by(:openid => params[:id])
-    @factory = wxuser.factory
+    #@factory = wxuser.factory
 
     #items = @factory.tasks.where(['state = ?', Setting.states.completed])
-    items = @factory.tasks.where(['task_date < ? ', Date.today])
+    items = wxuser.tasks.where(['task_date < ? ', Date.today])
    
     obj = []
     items.each do |item|
@@ -123,7 +123,7 @@ class WxTasksController < ApplicationController
     wxuser = WxUser.find_by(:openid => params[:id])
     @factory = wxuser.factory
     @device = @factory.devices.find(iddecode(device_id))
-    @task = @factory.tasks.find(iddecode(task_id))
+    @task = wxuser.tasks.find(iddecode(task_id))
 
     @task_report = TaskReport.new(:task => @task, :wx_user => wxuser, :device => @device, :longitude => longitude, :latitude => latitude, :question => question, :state => state, :img => imgs) 
 
@@ -175,77 +175,6 @@ class WxTasksController < ApplicationController
   end
 
    
-  def show
-   
-    @task = @factory.tasks.find(iddecode(params[:id]))
-   
-  end
-   
-
-   
-  def new
-    @task = Task.new
-    @wx_user_selector = []
-    @wx_users = @factory.wx_users
-  end
-   
-
-   
-  def create
-    @task = Task.new(task_params)
-    @task.factory = @factory
-    wx_users = params[:wx_users]
-    @wx_users = [] 
-    @wx_users = @factory.wx_users.find(wx_users) if wx_users
-    @task.wx_users = @wx_users
-     
-    if @task.save
-      redirect_to :action => :index
-    else
-      render :new
-    end
-  end
-   
-
-   
-  def edit
-    @task = @factory.tasks.find(iddecode(params[:id]))
-    @wx_users = @factory.wx_users
-    wx_users = @task.wx_users
-    @wx_user_selector = []
-    wx_users.each do |u|
-      @wx_user_selector << u.id
-    end
-  end
-   
-
-   
-  def update
-    @task = @factory.tasks.find(iddecode(params[:id]))
-    wx_users = params[:wx_users]
-    @wx_users = [] 
-    @wx_users = @factory.wx_users.find(wx_users) if wx_users
-    @task.wx_users = @wx_users
-   
-    if @task.update(task_params)
-      redirect_to edit_factory_task_path(idencode(@factory.id), idencode(@task.id)) 
-    else
-      render :edit
-    end
-  end
-   
-
-   
-  def destroy
-   
-    @task = @factory.tasks.find(iddecode(params[:id]))
-   
-    @task.destroy
-    redirect_to :action => :index
-  end
-   
-
-  
   private
     def task_params
       params.require(:task).permit( :task_date, :des , enclosures_attributes: enclosure_params)

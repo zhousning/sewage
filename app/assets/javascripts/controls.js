@@ -5,6 +5,20 @@ $(".controls.index").ready(function() {
       zoom: 11, 
       center: gon.center 
     });
+    var circle = new AMap.Circle({
+      //center: new AMap.LngLat(116.39,39.9),  // 圆心位置
+      center: gon.center, 
+      radius: 1000, // 圆半径米
+      strokeColor: "#1791fc", // 描边颜色
+      strokeOpacity: 1,
+      strokeWeight: 6,// 描边宽度
+      fillOpacity: 0.4,
+      strokeStyle: 'dashed',
+      strokeDasharray: [10, 10], 
+      fillColor: '#1791fc',// 圆形填充颜色
+      zIndex: 50,
+    });
+    map.add(circle);
 
     setInterval(function(){
       url = "/task_logs/query_latest_point"
@@ -14,10 +28,22 @@ $(".controls.index").ready(function() {
           var arr = [];
           for (var i=0; i<obj.length; i++) {
             var point = obj[i]['point'];
+            var avatar = obj[i]['avatar'];
+            var name = obj[i]['name'];
+            var startIcon = new AMap.Icon({
+              size: new AMap.Size(40, 40),
+              image: avatar,
+              imageSize: new AMap.Size(40, 40)
+            });
             var marker = new AMap.Marker({
-              icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+              icon: startIcon,
               position: point,
               anchor:'bottom-center'
+            });
+            marker.setLabel({
+              offset: new AMap.Pixel(0, 0),
+              content: '<div class="info"><span style="font-size:11px;color:black;padding:5px;">' + name + '</span></div>', 
+              direction: 'top'
             });
             arr.push(marker)
           }

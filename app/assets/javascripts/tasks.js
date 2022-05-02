@@ -130,7 +130,8 @@ function initMap() {
             //point 
             return pathData.name + '，点：' + pointIndex + '/' + pathData.path.length;
         }
-        return pathData.name + '，点数量' + pathData.path.length;
+        //return pathData.name + '，点数量' + pathData.path.length;
+        return pathData.name;
       },
       renderOptions: {
         pathLineStyle: {

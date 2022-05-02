@@ -52,7 +52,7 @@ class TaskLogsController < ApplicationController
         start_time = log.start_time 
         end_time   = log.end_time
         #name = start_time.strftime('%Y-%m-%d %H:%M:%S') + ' -> ' + end_time.strftime('%Y-%m-%d %H:%M:%S')
-        name = start_time.to_s + ' -> ' + end_time.to_s
+        name = start_time.strftime('%H:%M:%S') + ' -> ' + end_time.strftime('%H:%M:%S')
         path = get_points(@wx_user, trid) 
         obj << {:name => name, :path => path} unless path.blank?
       end
@@ -66,16 +66,14 @@ class TaskLogsController < ApplicationController
   def query_latest_point
     @factory = current_user.factories.first
     @task = @factory.tasks.where(:task_date => Date.today).first
-    #@task = @factory.tasks.where(:task_date => Date.new(2022,4,24)).first
 
     obj = []
     if @task && @task.wx_users
       @wx_users = @task.wx_users
 
       @wx_users.each do |user|
-        name = user.name
         point = latest_point(user) 
-        obj << {name: name, point: point} unless point.blank?
+        obj << {name: user.name, avatar: user.avatarurl, point: point} unless point.blank?
       end
     end
 

@@ -71,3 +71,19 @@ span {
     float: left;
     margin-right: 6px;
 }
+  .amap-icon img {
+            width: 25px;
+            height: 34px;
+        }
+
+        .amap-marker-label{
+            border: 0;
+            background-color: transparent;
+        }
+
+        .info{
+            position: relative;
+            top: 0;
+            right: 0;
+            min-width: 0;
+        }

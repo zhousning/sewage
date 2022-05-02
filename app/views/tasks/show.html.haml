@@ -37,11 +37,11 @@
                 %thead
                   %tr
                     %th.text-center.align-middle
+                      站点
+                    %th.text-center.align-middle
                       巡检人员
                     %th.text-center.align-middle
                       签到时间
-                    %th.text-center.align-middle
-                      站点
                     %th.text-center.align-middle
                       站点运行状态
                     %th.text-center.align-middle
@@ -53,11 +53,11 @@
                   - @task_reports.each do |rept|
                     %tr
                       %td.p-2.text-center.align-middle
+                        = rept.device.name
+                      %td.p-2.text-center.align-middle
                         = rept.wx_user.name
                       %td.p-2.text-center.align-middle
                         = rept.created_at.strftime('%H:%M:%S')
-                      %td.p-2.text-center.align-middle
-                        = rept.device.name
                       %td.p-2.text-center.align-middle
                         - if rept.state == '0' 
                           %span.p-2.text-white.bg-success

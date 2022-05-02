@@ -70,17 +70,20 @@ function initMap() {
     var time = obj[i].time;
     var infoWindow = mapInfoWindow(map, time, site, name, phone, avatar, longitude, latitude, state);
     var icon = '';
+    var label = '';
     if (state == '0') {
       //icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png";
-      icon = gon.blocal;
+      //icon = gon.blocal;
+      label = '<div class="info"><span style="font-size:11px;background-color:green;color:white;padding:5px;">正常</span></div>'
     } else {
       //icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png";
-      icon = gon.rlocal;
+      //icon = gon.rlocal;
+      label = '<div class="info"><span style="font-size:11px;background-color:red;color:white;padding:5px;">异常</span></div>'
     }
     var startIcon = new AMap.Icon({
-      size: new AMap.Size(30, 30),
-      image: icon,
-      imageSize: new AMap.Size(30, 30)
+      size: new AMap.Size(40, 40),
+      image: avatar,
+      imageSize: new AMap.Size(40, 40)
       //imageOffset: new AMap.Pixel(-9, -3)
     });
 
@@ -89,11 +92,12 @@ function initMap() {
       position: [longitude, latitude],
       anchor:'bottom-center'
     });
-    //marker.setLabel({
-    //  offset: new AMap.Pixel(20, 20),  //设置文本标注偏移量
-    //  content: "<div class='info'>我是 marker 的 label 标签</div>", //设置文本标注内容
-    //  direction: 'right' //设置文本标注方位
-    //});
+    marker.setLabel({
+      offset: new AMap.Pixel(0, 0),  //设置文本标注偏移量
+      //content: "<div class='info'>我是 marker 的 label 标签</div>", //设置文本标注内容
+      content: label, 
+      direction: 'bottom' //设置文本标注方位
+    });
     marker.on('click', function () {
       infoWindow.open(map, marker.getPosition());
     });

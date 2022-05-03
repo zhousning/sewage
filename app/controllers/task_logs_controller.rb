@@ -43,16 +43,15 @@ class TaskLogsController < ApplicationController
     @wx_user = WxUser.find(inspector)
 
     @task = @wx_user.tasks.where(:task_date => inspect_date).first
-    @task_logs = @task.task_logs
+    @task_logs = TaskLog.where(:wx_user_id => @wx_user.id, :task_id => @task.id) 
 
     obj = []
     @task_logs.each do |log|
       if log.gdtrace
         trid = log.gdtrace.trid
-        start_time = log.start_time 
-        end_time   = log.end_time
-        #name = start_time.strftime('%Y-%m-%d %H:%M:%S') + ' -> ' + end_time.strftime('%Y-%m-%d %H:%M:%S')
-        name = start_time.strftime('%H:%M:%S') + ' -> ' + end_time.strftime('%H:%M:%S')
+        start_time = log.start_time.nil? ? '' : log.start_time.strftime('%H:%M:%S') 
+        end_time = log.end_time.nil? ? '' : log.end_time.strftime('%H:%M:%S') 
+        name = start_time  + ' -> ' + end_time
         path = get_points(@wx_user, trid) 
         obj << {:name => name, :path => path} unless path.blank?
       end
@@ -98,7 +97,7 @@ class TaskLogsController < ApplicationController
     res = RestClient.get url, params: params
     obj = JSON.parse(res)
     point = []
-    if obj["errcode"] == 10000
+    if obj["errcode"] == 10000 && !obj['data'].nil?
       point = obj['data']['location'].split(',')
       locatetime = obj['data']['locatetime']
     end

@@ -54,7 +54,8 @@ $(".tasks").ready(function() {
 
 function initMap() {
   var map = new AMap.Map('allmap', {
-      zoom: 11 
+      zoom: 11,
+      center: gon.center
   });
 
   var arr = [];

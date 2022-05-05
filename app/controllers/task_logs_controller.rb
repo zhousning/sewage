@@ -104,62 +104,6 @@ class TaskLogsController < ApplicationController
     point
   end
 
-   
-  def show
-   
-    @task_log = TaskLog.find(iddecode(params[:id]))
-   
-  end
-   
-
-   
-  def new
-    @task_log = TaskLog.new
-    
-  end
-   
-
-   
-  def create
-    @task_log = TaskLog.new(task_log_params)
-     
-    if @task_log.save
-      redirect_to :action => :index
-    else
-      render :new
-    end
-  end
-   
-
-   
-  def edit
-   
-    @task_log = TaskLog.find(iddecode(params[:id]))
-   
-  end
-   
-
-   
-  def update
-   
-    @task_log = TaskLog.find(iddecode(params[:id]))
-   
-    if @task_log.update(task_log_params)
-      redirect_to task_log_path(idencode(@task_log.id)) 
-    else
-      render :edit
-    end
-  end
-   
-
-   
-  def destroy
-   
-    @task_log = TaskLog.find(iddecode(params[:id]))
-   
-    @task_log.destroy
-    redirect_to :action => :index
-  end
 
   private
     def task_log_params
@@ -185,9 +129,12 @@ class TaskLogsController < ApplicationController
       obj = JSON.parse(res)
       locations = []
       if obj["errcode"] == 10000
-        points = obj['data']['tracks'][0]['points']
-        points.each do |point|
-          locations << point['location'].split(',')
+        counts = obj['data']['tracks'][0]['counts']
+        if counts > 10
+          points = obj['data']['tracks'][0]['points']
+          points.each do |point|
+            locations << point['location'].split(',')
+          end
         end
       end
       locations

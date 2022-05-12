@@ -1,13 +1,13 @@
 ---
 mysetting:
-  notices: &24
+  notices: 
     label: 通知公告
     title: 标题
     content: 内容
-  reports: &25
+  reports: 
     title: 标题
     content: 正文
-  models: &26
+  models: 
     label: ''
     name: 名称
     image: 图像
@@ -19,15 +19,15 @@ mysetting:
     js: js
     scss: scss
     admin: 添加到后台
-  properties: &27
+  properties: 
     label: 嵌套显示的属性
     name: 属性名
     tag: 标签
-  relates: &28
+  relates: 
     label: ''
     type: 关联类型
     obj: 对象
-  templates: &29
+  templates: 
     label: 模板
     name: 英文名称
     cn_name: 中文名称
@@ -47,13 +47,13 @@ mysetting:
     upload: 上传解析表格
     admin: 添加到后台
     current_user: current_user
-  natures: &30
+  natures: 
     label: ''
     name: 英文属性名
     type: 类型
     title: 中文属性名
     tag: 标签
-  spiders: &31
+  spiders: 
     label: 爬虫
     link: 请求地址
     cookie: cookie
@@ -64,7 +64,7 @@ mysetting:
     referer: referer
     host: host
     redirection: redirection
-  selectors: &32
+  selectors: 
     label: 选择器
     name: 选择器名称
     category: 类型
@@ -80,12 +80,12 @@ mysetting:
         info: 图片
         value: '2'
 defaults:
-  admins: &1
+  admins: 
     class_name: all
     email: myzn@world.com
     phone: '17305379588'
     password: dagening@521
-  users: &2
+  users: 
     class_name: User
     opening: 0
     pending: 1
@@ -104,7 +104,7 @@ defaults:
     status: 认证状态
     level: 等级
     inviter: 邀请者
-  roles: &3
+  roles: 
     label: 角色
     name: 名称
     class_name: Role
@@ -116,18 +116,19 @@ defaults:
     role_task: 巡检任务
     role_inspector: 巡检人员
     role_beidou: 北斗定位终端
-  permissions: &4
+  permissions: 
     super_admin: 管理系统所有资源
     label: 权限管理
     name: 名称
     subject_class: controller单数名称
     action: action
     description: 描述
-  systems: &5
+  systems: 
     poundage: 0.1
     commision: 0.1
     authc_pay: 1
-    host: http://192.168.31.20:3000
+    #host: http://192.168.43.7:3000
+    host: https://dtxcx.swgysw.com:9191
     status_en_yes: true
     status_en_no: false
     status_yes: 是
@@ -158,7 +159,7 @@ defaults:
     passed: 通过
     gdkey: adb51a0594db1cd83d9e209f5cb095dd
     gdname: 巡检系统
-  states: &6
+  states: 
     opening: opening
     selecting: selecting
     selected: selected
@@ -172,7 +173,7 @@ defaults:
     pending: pending
     passed: passed
     working: working
-  trade_orders: &7
+  trade_orders: 
     number: 订单编号
     price: 价格
     state: 状态
@@ -192,7 +193,7 @@ defaults:
     completed_title: 已完成
     canceled: canceled
     canceled_title: 已取消
-  extract_cashes: &8
+  extract_cashes: 
     coin: 提取金额
     status: 状态
     pending: pending
@@ -201,7 +202,7 @@ defaults:
     agree_title: 同意
     disagree: disagree
     disagree_title: 不同意
-  file_libs: &9
+  file_libs: 
     label: 文件库
     name: 文件名
     path: 路径
@@ -213,40 +214,40 @@ defaults:
     ppt: '4'
     mp4: '5'
     txt: '6'
-  archives: &10
+  archives: 
     label: 档案库
     name: 名称
     desc: 备注
-  portfolios: &11
+  portfolios: 
     label: 文件夹
     name: 文件夹名
-  examines: &12
+  examines: 
     label: 考核资料自选库
     name: 名称
-  exm_items: &13
+  exm_items: 
     label: 一级目录
     name: 一级目录名
     hierarchy: 目录树
-  agendas: &14
+  agendas: 
     label: 日程
     title: 标题
     content: 事务内容
     worktime: 时间
-  statistics: &15
+  statistics: 
     label: 统计
     title: 标题
     xtitle: x轴标题
     ytitle: y轴标题
     legend: 图例
     data: 数据
-  companies: &16
+  companies: 
     label: 公司
     area: 地区
     name: 名称
     info: 简介
     lnt: 经度
     lat: 维度
-  factories: &17
+  factories: 
     label: 工厂
     area: 地区
     name: 名称
@@ -255,11 +256,11 @@ defaults:
     lnt: 经度
     lat: 维度
     plan: 计划
-  departments: &18
+  departments: 
     label: 部门
     name: 名称
     info: 简介
-  charts: &19
+  charts: 
     line: '0'
     bar: '1'
     gauge: '2'
@@ -272,7 +273,7 @@ defaults:
     table_t: table
     radar_t: radar
     scatter_3d_t: scatter_3d
-  months: &20
+  months: 
     one: '1'
     one_t: 一月
     two: '2'
@@ -297,7 +298,7 @@ defaults:
     eleven_t: 十一月
     twelve: '12'
     twelve_t: 十二月
-  accounts: &21
+  accounts: 
     coin: 金额
     password: 安全密码
     number: 卡号
@@ -308,7 +309,7 @@ defaults:
     award_invite_recharge: 40
     enable: enable
     disable: disable
-  devices: &22
+  devices: 
     label: 站点信息
     idno: 站点编号
     name: 站点名称
@@ -327,52 +328,18 @@ defaults:
     state_normal: 正常
     state_repair: 检修
     state_stop: 停用
-  upholds: &23
+  upholds: 
     label: 巡检记录
     uphold_date: 日期
     reason: 巡检原因
     content: 巡检内容
     cost: 费用
     state: 状态
-  patrolers: &33
+  patrolers: 
     label: 巡检人员
     name: 姓名
     phone: 电话
     password: 密码
-development:
-  admins: *1
-  users: *2
-  roles: *3
-  permissions: *4
-  systems: *5
-  states: *6
-  trade_orders: *7
-  extract_cashes: *8
-  file_libs: *9
-  archives: *10
-  portfolios: *11
-  examines: *12
-  exm_items: *13
-  agendas: *14
-  statistics: *15
-  companies: *16
-  factories: *17
-  departments: *18
-  charts: *19
-  months: *20
-  accounts: *21
-  devices: *22
-  upholds: *23
-  notices: *24
-  reports: *25
-  models: *26
-  properties: *27
-  relates: *28
-  templates: *29
-  natures: *30
-  spiders: *31
-  selectors: *32
-  patrolers: *33
   tasks:
     label: 巡检任务
     task_date: 巡检日期
@@ -402,37 +369,10 @@ development:
     label: 北斗地图轨迹管理
     trid: trid
     trname: trname
+development:
+  <<: *mysetting
+  <<: *defaults
 test: 
 production:
-  admins: *1
-  users: *2
-  roles: *3
-  permissions: *4
-  systems: *5
-  states: *6
-  trade_orders: *7
-  extract_cashes: *8
-  file_libs: *9
-  archives: *10
-  portfolios: *11
-  examines: *12
-  exm_items: *13
-  agendas: *14
-  statistics: *15
-  companies: *16
-  factories: *17
-  departments: *18
-  charts: *19
-  months: *20
-  accounts: *21
-  devices: *22
-  upholds: *23
-  notices: *24
-  reports: *25
-  models: *26
-  properties: *27
-  relates: *28
-  templates: *29
-  natures: *30
-  spiders: *31
-  selectors: *32
+  <<: *mysetting
+  <<: *defaults

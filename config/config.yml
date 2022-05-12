@@ -1,5 +1,5 @@
 ---
-mysetting:
+mysetting: &mysetting
   notices: 
     label: 通知公告
     title: 标题
@@ -79,7 +79,7 @@ mysetting:
       img:
         info: 图片
         value: '2'
-defaults:
+defaults: &defaults
   admins: 
     class_name: all
     email: myzn@world.com
@@ -128,7 +128,7 @@ defaults:
     commision: 0.1
     authc_pay: 1
     #host: http://192.168.43.7:3000
-    host: https://dtxcx.swgysw.com:9191
+    host: http://dtxcx.swgysw.com
     status_en_yes: true
     status_en_no: false
     status_yes: 是

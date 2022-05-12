@@ -92,30 +92,35 @@ class WxUsersController < ApplicationController
     end                                  
 
     def create_gdteminal(wx_user)
-      url = "https://tsapi.amap.com/v1/track/terminal/add"
-      @gdservice = Gdservice.where(:name => Setting.systems.gdname).first
-      #name = 'vuserid' + wx_user.id.to_s + 'time' + Time.now.to_i.to_s + "%04d" % [rand(10000)]
-      name = wx_user.openid
-      params = {
-        key: @gdservice.key,
-        sid: @gdservice.sid,
-        name: name
-      }
-      res = RestClient.post url, params
-      obj = JSON.parse(res)
-      issave = false
-      if obj["errcode"] == 10000
-        tid = obj['data']['tid']
-        name = obj['data']['name']
-        @gdteminal = Gdteminal.new(:tid => tid, :name => name, :gdservice => @gdservice, :wx_user => wx_user)
-        if @gdteminal.save
-          issave = true
+      gdteminal = Gdteminal.where(:name => wx_user.openid).first 
+      if gdteminal
+        gdteminal.update_attributes!(:wx_user => wx_user)
+      else
+        url = "https://tsapi.amap.com/v1/track/terminal/add"
+        @gdservice = Gdservice.where(:name => Setting.systems.gdname).first
+        #name = 'vuserid' + wx_user.id.to_s + 'time' + Time.now.to_i.to_s + "%04d" % [rand(10000)]
+        name = wx_user.openid
+        params = {
+          key: @gdservice.key,
+          sid: @gdservice.sid,
+          name: name
+        }
+        res = RestClient.post url, params
+        obj = JSON.parse(res)
+        issave = false
+        if obj["errcode"] == 10000
+          tid = obj['data']['tid']
+          name = obj['data']['name']
+          @gdteminal = Gdteminal.new(:tid => tid, :name => name, :gdservice => @gdservice, :wx_user => wx_user)
+          if @gdteminal.save
+            issave = true
+          else
+            issave = false 
+          end
         else
           issave = false 
         end
-      else
-        issave = false 
+        issave
       end
-      issave
     end
 end

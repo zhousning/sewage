@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration
     
       t.date :task_date,  null: false, default: Date.today
     
-      t.text :des,  null: false, default: Setting.systems.default_str
+      t.text :des
     
       t.string :state,  null: false, default: Setting.states.ongoing
 

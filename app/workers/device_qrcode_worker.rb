@@ -14,13 +14,13 @@ class DeviceQrcodeWorker
 
     base_path = File.join(Rails.root, "app", "assets", "images", "qrcodebase.png")
     base = ChunkyPNG::Image.from_file(base_path)
-    base.compose!(qr_code_img, 225, 244)
+    base.compose!(qr_code_img, 225, 350)
 
     @log = Logger.new('log/deviceqrcodeerror.log')
     if @device.update_attributes!(:qrcode => base.to_string)
       qrcode = Dragonfly.app.remote_url_for(@device.qrcode_uid)
       qrcode = File.join(Rails.root, "public", qrcode)
-      command = "convert #{qrcode} -fill white -font #{ENV['FONT']} -gravity north -pointsize 70 -annotate +0+100 #{@device.name} -pointsize 60 -annotate +0+950 #{@factory.name} #{qrcode}"
+      command = "convert #{qrcode} -fill white -font #{ENV['FONT']} -gravity north -pointsize 70 -annotate +0+160 #{@device.name} -fill black -pointsize 60 -annotate +0+1050 #{@factory.name} #{qrcode}"
       system(command)
     else
       @log.error @factory.name + " device id: " + @device.id + "-" + @device.name + ' qrcode update error'  

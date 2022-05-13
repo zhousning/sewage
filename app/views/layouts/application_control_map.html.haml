@@ -5,7 +5,7 @@
     %meta{:name => "viewport", :content => "width=device-width, user-scalable=no,initial-scale=1"}
     %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
     %title= "#{yield(:title)} - #{t('.site_title')}"
-    %script{type: "text/javascript"}
+    :javascript
       window._AMapSecurityConfig = {
         // 例如 ：serviceHost:'http://1.1.1.1:80/_AMapService',
         serviceHost: "#{Setting.systems.host}" + '/_AMapService',  

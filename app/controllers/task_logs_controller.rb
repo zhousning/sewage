@@ -97,7 +97,7 @@ class TaskLogsController < ApplicationController
     res = RestClient.get url, params: params
     obj = JSON.parse(res)
     point = []
-    if obj["errcode"] == 10000 
+    if obj["errcode"] == 10000 && obj['data']
       point = obj['data']['location'].split(',')
       locatetime = obj['data']['locatetime']
     end

@@ -5,9 +5,13 @@
     %meta{:name => "viewport", :content => "width=device-width, user-scalable=no,initial-scale=1"}
     %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
     %title= "#{yield(:title)} - #{t('.site_title')}"
-    %script{:type => "text/javascript", :src => "http://webapi.amap.com/maps?v=2.0&key=adb51a0594db1cd83d9e209f5cb095dd"}
+    %script{type: "text/javascript"}
+      window._AMapSecurityConfig = {
+        // 例如 ：serviceHost:'http://1.1.1.1:80/_AMapService',
+        serviceHost: "#{Setting.systems.host}" + '/_AMapService',  
+      }
+    %script{:type => "text/javascript", :src => "http://webapi.amap.com/maps?v=2.0&key=f4448b66ec8780bb657b985dad806fc4"}
     %script{:type => "text/javascript", :src => "http://webapi.amap.com/ui/1.1/main.js?v=1.1.1"}
-    %script{:type => "text/javascript", :src => ""}
     = javascript_include_tag 'application'
     = stylesheet_link_tag    'application', media: 'all'
     = csrf_meta_tags
